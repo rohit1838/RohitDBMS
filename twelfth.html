@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Decode and Case Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        .keyword {
+            color: #d19a66;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>DECODE & CASE</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">What is the DECODE function in SQL?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+The <span class="keyword">DECODE</span> function provides if-then-else logic in SQL. It compares an expression to each search value one by one. If the expression matches a search value, it returns the corresponding result.
+**Syntax:** DECODE(column, search1, result1, search2, result2, ..., default)
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Using DECODE, display employee name and department name based on DEPTNO (10='ACCOUNTING', 20='RESEARCH', 30='SALES', else 'OTHERS').</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+DECODE(DEPTNO, 10, 'ACCOUNTING', 
+               20, 'RESEARCH', 
+               30, 'SALES', 
+               'OTHERS') AS DNAME 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">What is the CASE expression?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+The <span class="keyword">CASE</span> expression is a more flexible version of DECODE. It can handle complex conditions (like <, >, BETWEEN) and is ANSI SQL compliant (works across different databases).
+**Syntax:** CASE 
+  WHEN condition THEN result 
+  ELSE default 
+END
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Using CASE, display employee name and salary grade ('High' if SAL > 3000, 'Medium' if SAL > 1500, else 'Low').</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+CASE 
+  WHEN SAL > 3000 THEN 'High'
+  WHEN SAL > 1500 THEN 'Medium'
+  ELSE 'Low'
+END AS SALARY_GRADE
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">What is the difference between Simple CASE and Searched CASE?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+- <span class="keyword">Simple CASE:</span> Compares one expression to multiple values (like DECODE).
+  Example: CASE DEPTNO WHEN 10 THEN 'A' END
+- <span class="keyword">Searched CASE:</span> Uses Boolean expressions for each WHEN clause.
+  Example: CASE WHEN SAL > 2000 THEN 'B' END
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Using DECODE, calculate a bonus: 'CLERK' gets 500, 'SALESMAN' gets 1000, 'MANAGER' gets 1500, others 0.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, JOB, 
+DECODE(JOB, 'CLERK', 500, 
+            'SALESMAN', 1000, 
+            'MANAGER', 1500, 
+            0) AS BONUS 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Rewrite the previous Bonus question using a CASE expression.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, JOB, 
+CASE JOB 
+  WHEN 'CLERK' THEN 500
+  WHEN 'SALESMAN' THEN 1000
+  WHEN 'MANAGER' THEN 1500
+  ELSE 0
+END AS BONUS
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Display employee name and status: 'Senior' if hired before 1982, 'Junior' if hired after 1981.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE, 
+CASE 
+  WHEN HIREDATE < TO_DATE('01-JAN-1982', 'DD-MON-YYYY') THEN 'Senior'
+  ELSE 'Junior'
+END AS STATUS
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Can you nest a DECODE function inside another DECODE?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+Yes, DECODE functions can be nested to handle more complex logic. 
+**Example:** DECODE(DEPTNO, 10, DECODE(JOB, 'CLERK', 'A', 'B'), 'C')
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Display employee name, job, and a 'Duty' column: 'Office' for CLERK/MANAGER, 'Field' for SALESMAN, 'Lab' for ANALYST.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, JOB, 
+CASE 
+  WHEN JOB IN ('CLERK', 'MANAGER') THEN 'Office'
+  WHEN JOB = 'SALESMAN' THEN 'Field'
+  WHEN JOB = 'ANALYST' THEN 'Lab'
+  ELSE 'General'
+END AS DUTY
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Using DECODE, display employee name and their location based on DEPTNO (10='NEW YORK', 20='DALLAS', 30='CHICAGO', 40='BOSTON', else 'UNKNOWN').</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+DECODE(DEPTNO, 10, 'NEW YORK', 
+               20, 'DALLAS', 
+               30, 'CHICAGO', 
+               40, 'BOSTON', 
+               'UNKNOWN') AS LOCATION 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Using CASE, display employee name, salary, and a 'Tax' column (20% if SAL > 3000, 10% if SAL > 1500, else 5%).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, SAL, 
+CASE 
+  WHEN SAL > 3000 THEN SAL * 0.20
+  WHEN SAL > 1500 THEN SAL * 0.10
+  ELSE SAL * 0.05
+END AS TAX_AMOUNT
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Using DECODE, show employee name and a 'Level' based on the first letter of their JOB ('P' for PRESIDENT, 'M' for MANAGER, 'A' for ANALYST, else 'Staff').</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+DECODE(SUBSTR(JOB, 1, 1), 'P', 'PRESIDENT', 
+                          'M', 'MANAGER', 
+                          'A', 'ANALYST', 
+                          'Staff') AS JOB_LEVEL 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Using CASE, display employee name and hire date status: 'Joined in 80s' if between 1980-1989, 'Joined in 90s' if between 1990-1999, else 'Other'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE, 
+CASE 
+  WHEN HIREDATE BETWEEN '01-JAN-1980' AND '31-DEC-1989' THEN 'Joined in 80s'
+  WHEN HIREDATE BETWEEN '01-JAN-1990' AND '31-DEC-1999' THEN 'Joined in 90s'
+  ELSE 'Other'
+END AS HIRE_ERA
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Using DECODE, display employee name and a message: if COMM is NULL, show 'No Bonus', otherwise show 'Eligible'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Note: DECODE treats NULL as a value for comparison
+SELECT ENAME, 
+DECODE(COMM, NULL, 'No Bonus', 'Eligible') AS BONUS_STATUS 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Using CASE, categorize employees by department: 10 is 'Admin', 20 is 'Tech', 30 is 'Sales', else 'General'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+CASE DEPTNO 
+  WHEN 10 THEN 'Admin'
+  WHEN 20 THEN 'Tech'
+  WHEN 30 THEN 'Sales'
+  ELSE 'General'
+END AS DEPT_CATEGORY
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Using DECODE, display employee name and salary increase: 'CLERK' gets 10% increase, 'ANALYST' gets 15%, others 5%.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, SAL, 
+SAL + DECODE(JOB, 'CLERK', SAL * 0.10, 
+                  'ANALYST', SAL * 0.15, 
+                  SAL * 0.05) AS NEW_SALARY 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Using CASE, check if employee name starts with 'S'. If yes, show 'Starts with S', else show the ENAME.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT 
+CASE 
+  WHEN ENAME LIKE 'S%' THEN 'Starts with S'
+  ELSE ENAME
+END AS NAME_CHECK
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Using DECODE, display the name of the month based on the month number of HIREDATE (1='Jan', 2='Feb', etc.).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+DECODE(TO_CHAR(HIREDATE, 'MM'), '01', 'Jan', 
+                               '02', 'Feb', 
+                               '03', 'Mar', 
+                               '04', 'Apr', 
+                               'Other') AS MONTH_NAME 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Using CASE, find the total annual income including commission. If COMM is NULL, use 0 for calculation.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+CASE 
+  WHEN COMM IS NULL THEN (SAL * 12)
+  ELSE (SAL * 12) + COMM
+END AS TOTAL_ANNUAL_INCOME
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Using DECODE, count how many employees are in department 10, 20, and 30 separately in a single row.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT 
+  COUNT(DECODE(DEPTNO, 10, 1)) AS DEPT10_COUNT,
+  COUNT(DECODE(DEPTNO, 20, 1)) AS DEPT20_COUNT,
+  COUNT(DECODE(DEPTNO, 30, 1)) AS DEPT30_COUNT
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Using CASE, display employee name and a 'Salary_Type': 'Odd' if salary is odd, 'Even' if salary is even.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, SAL,
+CASE 
+  WHEN MOD(SAL, 2) = 0 THEN 'Even'
+  ELSE 'Odd'
+END AS SALARY_TYPE
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Using DECODE, display employee name and a 'Comm_Level': 0 if NULL, 'Low' if 300, 'Medium' if 500, else 'High'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, COMM,
+DECODE(COMM, NULL, '0', 
+             300, 'Low', 
+             500, 'Medium', 
+             'High') AS COMM_LEVEL
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Using CASE, display employee name and a 'Seniority' column: 'Very Senior' if hired before 1981, 'Senior' if joined in 1981, else 'Junior'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE,
+CASE 
+  WHEN HIREDATE < TO_DATE('01-JAN-1981', 'DD-MON-YYYY') THEN 'Very Senior'
+  WHEN TO_CHAR(HIREDATE, 'YYYY') = '1981' THEN 'Senior'
+  ELSE 'Junior'
+END AS SENIORITY
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

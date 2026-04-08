@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Advanced Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>SQL Advanced Queries</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Delete employees earning less than the average salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE SALARY < (SELECT AVG(SALARY) FROM EMP);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Delete employees whose department is located in NEW YORK.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE DEPTNO IN (SELECT DEPTNO FROM DEPT WHERE LOC = 'NEW YORK');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Delete employees working in departments with less than 3 employees.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE DEPTNO IN (
+    SELECT DEPTNO FROM EMP 
+    GROUP BY DEPTNO 
+    HAVING COUNT(*) < 3
+);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Delete employees who earn less than all MANAGERS.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE SALARY < ALL (SELECT SALARY FROM EMP WHERE JOB = 'MANAGER');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Delete employees whose salary equals the minimum salary of their department.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP E1
+WHERE SALARY = (
+    SELECT MIN(SALARY) 
+    FROM EMP E2 
+    WHERE E1.DEPTNO = E2.DEPTNO
+);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Increase salary by 15% for employees earning less than department average.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP E1
+SET SALARY = SALARY * 1.15
+WHERE SALARY < (
+    SELECT AVG(SALARY) 
+    FROM EMP E2 
+    WHERE E1.DEPTNO = E2.DEPTNO
+);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Delete employees who are not managers but earn more than at least one manager.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE JOB != 'MANAGER' 
+AND SALARY > ANY (SELECT SALARY FROM EMP WHERE JOB = 'MANAGER');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Insert employees with highest salary from each department into TOP_EMP table.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO TOP_EMP
+SELECT * FROM EMP E1
+WHERE SALARY = (
+    SELECT MAX(SALARY) 
+    FROM EMP E2 
+    WHERE E1.DEPTNO = E2.DEPTNO
+);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Update commission to 10% of salary for SALESMAN.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET COMM = SALARY * 0.10
+WHERE JOB = 'SALESMAN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Delete employees who earn the second highest salary in the company.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE SALARY = (
+    SELECT MAX(SALARY) 
+    FROM EMP 
+    WHERE SALARY < (SELECT MAX(SALARY) FROM EMP)
+);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Update the salary of employee SMITH to 2000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SALARY = 2000 
+WHERE ENAME = 'SMITH';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Increase salary of all employees by 10%.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SALARY = SALARY * 1.10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Update the department number of employee ALLEN to 20.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET DEPTNO = 20 
+WHERE ENAME = 'ALLEN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Update commission of SALESMAN to 500.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET COMM = 500 
+WHERE JOB = 'SALESMAN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Update job of employee MILLER to MANAGER.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET JOB = 'MANAGER' 
+WHERE ENAME = 'MILLER';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Increase salary of employees in department 10 by 20%.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SALARY = SALARY * 1.20 
+WHERE DEPTNO = 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Update salary of employees whose job is CLERK to 1500.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SALARY = 1500 
+WHERE JOB = 'CLERK';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Update location of department 30 to MUMBAI.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE DEPT 
+SET LOC = 'MUMBAI' 
+WHERE DEPTNO = 30;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Update commission of employees who have NULL commission to 100.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET COMM = 100 
+WHERE COMM IS NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Update salary of employees who earn less than average salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Note: Use a subquery to find average
+UPDATE EMP 
+SET SALARY = SALARY + 500 
+WHERE SALARY < (SELECT AVG(SALARY) FROM (SELECT SALARY FROM EMP) AS temp);
+            </div>
+        </details>
+    </div>
+</body>
+</html>

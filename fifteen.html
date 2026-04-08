@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL DCL Commands Practice - GRANT</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .schema-note {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0 0 40px;
+            font-style: italic;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        code {
+            color: #d19a66; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>DCL COMMANDS - GRANT</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Grant SELECT privilege on EMP table to a user named USER1.</span>
+        <span class="schema-note">(GRANT – BASIC SELECT)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT SELECT ON EMP TO USER1;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Grant SELECT and INSERT privileges on EMP table to USER2.</span>
+        <span class="schema-note">(GRANT – MULTIPLE PRIVILEGES)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT SELECT, INSERT ON EMP TO USER2;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Grant all privileges on DEPT table to USER3.</span>
+        <span class="schema-note">(GRANT – ALL PRIVILEGES)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT ALL ON DEPT TO USER3;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Grant SELECT privilege on EMP table to USER4 with GRANT OPTION.</span>
+        <span class="schema-note">(GRANT – WITH GRANT OPTION)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT SELECT ON EMP TO USER4 WITH GRANT OPTION;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Grant UPDATE privilege only on SAL column of EMP table to USER5.</span>
+        <span class="schema-note">(GRANT – COLUMN LEVEL)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT UPDATE(SAL) ON EMP TO USER5;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Grant DELETE privilege on EMP table to USER6.</span>
+        <span class="schema-note">(GRANT – DELETE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT DELETE ON EMP TO USER6;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Grant SELECT privilege on both EMP and DEPT tables to USER7.</span>
+        <span class="schema-note">(GRANT – MULTIPLE TABLES)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT SELECT ON EMP TO USER7;
+GRANT SELECT ON DEPT TO USER7;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Grant privileges on EMP table to PUBLIC.</span>
+        <span class="schema-note">(GRANT – PUBLIC ACCESS)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT SELECT ON EMP TO PUBLIC;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Grant INSERT privilege on EMP table to USER8 with the ability to grant further.</span>
+        <span class="schema-note">(GRANT – WITH GRANT OPTION)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT INSERT ON EMP TO USER8 WITH GRANT OPTION;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Grant UPDATE and DELETE privileges on EMP table to USER9.</span>
+        <span class="schema-note">(GRANT – UPDATE & DELETE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+GRANT UPDATE, DELETE ON EMP TO USER9;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Revoke SELECT privilege on EMP table from USER1.</span>
+        <span class="schema-note">(REVOKE – BASIC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+REVOKE SELECT ON EMP FROM USER1;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Revoke INSERT and UPDATE privileges on EMP table from USER2.</span>
+        <span class="schema-note">(REVOKE – MULTIPLE PRIVILEGES)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+REVOKE INSERT, UPDATE ON EMP FROM USER2;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Revoke ALL privileges on DEPT table from USER3.</span>
+        <span class="schema-note">(REVOKE – ALL)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+REVOKE ALL ON DEPT FROM USER3;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Revoke GRANT OPTION from USER4 on EMP table.</span>
+        <span class="schema-note">(REVOKE – GRANT OPTION)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Note: This revokes the ability to grant, but keeps the SELECT privilege
+REVOKE GRANT OPTION FOR SELECT ON EMP FROM USER4;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Revoke UPDATE privilege on SAL column from USER5.</span>
+        <span class="schema-note">(REVOKE – COLUMN LEVEL)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Note: Most SQL dialects require revoking the privilege from the whole table
+REVOKE UPDATE ON EMP FROM USER5;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Revoke DELETE privilege on EMP table from USER6.</span>
+        <span class="schema-note">(REVOKE – DELETE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+REVOKE DELETE ON EMP FROM USER6;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Revoke privileges granted to PUBLIC on EMP table.</span>
+        <span class="schema-note">(REVOKE – PUBLIC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+REVOKE SELECT ON EMP FROM PUBLIC;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Revoke all privileges on EMP table from USER9.</span>
+        <span class="schema-note">(REVOKE – CLEANUP)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+REVOKE ALL ON EMP FROM USER9;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Insert a new employee record into EMP table and commit the changes.</span>
+        <span class="schema-note">(COMMIT – INSERT)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP (EMPNO, ENAME, SAL, DEPTNO) 
+VALUES (5001, 'ARJUN', 3000, 10);
+
+COMMIT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Update salary of employees in department 10 and commit the changes.</span>
+        <span class="schema-note">(COMMIT – UPDATE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SAL = SAL + 500 
+WHERE DEPTNO = 10;
+
+COMMIT;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Delete employees with salary less than 1000 and commit the transaction.</span>
+        <span class="schema-note">(COMMIT – DELETE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP WHERE SAL < 1000;
+COMMIT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Insert multiple records into DEPT table and commit them together.</span>
+        <span class="schema-note">(COMMIT – MULTIPLE OPERATIONS)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO DEPT VALUES (60, 'HR', 'MUMBAI');
+INSERT INTO DEPT VALUES (70, 'IT', 'PUNE');
+COMMIT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Update department location and commit the changes.</span>
+        <span class="schema-note">(COMMIT – DEPT TABLE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE DEPT SET LOC = 'CHENNAI' WHERE DEPTNO = 10;
+COMMIT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Insert a new employee into EMP table but rollback the transaction.</span>
+        <span class="schema-note">(ROLLBACK – INSERT)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP (EMPNO, ENAME, SAL) VALUES (6001, 'KIRAN', 4000);
+ROLLBACK;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">25</span>
+        <span class="q-text">Update salary of employees and then rollback the changes.</span>
+        <span class="schema-note">(ROLLBACK – UPDATE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP SET SAL = SAL + 1000;
+ROLLBACK;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">26</span>
+        <span class="q-text">Delete records from EMP table and rollback the transaction.</span>
+        <span class="schema-note">(ROLLBACK – DELETE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP WHERE DEPTNO = 20;
+ROLLBACK;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">27</span>
+        <span class="q-text">Perform multiple operations (INSERT, UPDATE, DELETE) and rollback all changes.</span>
+        <span class="schema-note">(ROLLBACK – MULTIPLE OPERATIONS)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP (EMPNO, ENAME) VALUES (7001, 'SARA');
+UPDATE EMP SET SAL = 5000 WHERE EMPNO = 7902;
+DELETE FROM DEPT WHERE DEPTNO = 40;
+ROLLBACK;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">28</span>
+        <span class="q-text">Update department location and rollback before committing.</span>
+        <span class="schema-note">(ROLLBACK – DEPT TABLE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE DEPT SET LOC = 'BANGALORE' WHERE DEPTNO = 30;
+ROLLBACK;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">29</span>
+        <span class="q-text">Insert a new employee, update salary, and commit only after verifying results.</span>
+        <span class="schema-note">(TRANSACTION – COMMIT CONTROL)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP (EMPNO, ENAME, SAL) VALUES (8001, 'NEHA', 4500);
+UPDATE EMP SET SAL = SAL + 200 WHERE EMPNO = 8001;
+-- Verifying...
+SELECT * FROM EMP WHERE EMPNO = 8001;
+-- Verification successful
+COMMIT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">30</span>
+        <span class="q-text">Insert multiple employees, rollback one operation using SAVEPOINT, then commit remaining.</span>
+        <span class="schema-note">(TRANSACTION – SAVEPOINT + COMMIT)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP (EMPNO, ENAME) VALUES (9001, 'AJAY');
+SAVEPOINT s1;
+INSERT INTO EMP (EMPNO, ENAME) VALUES (9002, 'VIJAY');
+ROLLBACK TO s1;
+COMMIT;
+-- Note: Only AJAY is saved in the database.
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">31</span>
+        <span class="q-text">Create a transaction where some operations are committed and others are rolled back.</span>
+        <span class="schema-note">(TRANSACTION – PARTIAL CONTROL)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP (EMPNO, ENAME) VALUES (1001, 'ROHAN');
+SAVEPOINT p1;
+UPDATE EMP SET SAL = 2500 WHERE EMPNO = 1001;
+ROLLBACK TO p1;
+COMMIT;
+-- Result: ROHAN is inserted, but his salary update is undone.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">32</span>
+        <span class="q-text">Demonstrate use of SAVEPOINT in EMP table operations.</span>
+        <span class="schema-note">(TRANSACTION – SAVEPOINT)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP SET SAL = SAL + 100;
+SAVEPOINT sp_after_raise;
+DELETE FROM EMP WHERE DEPTNO = 30;
+-- If deletion was a mistake:
+ROLLBACK TO sp_after_raise;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">33</span>
+        <span class="q-text">Perform update on EMP table and rollback to a specific SAVEPOINT.</span>
+        <span class="schema-note">(TRANSACTION – ROLLBACK TO SAVEPOINT)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SAVEPOINT start_point;
+UPDATE EMP SET COMM = 500 WHERE JOB = 'SALESMAN';
+SAVEPOINT point_2;
+UPDATE EMP SET SAL = SAL * 1.10;
+ROLLBACK TO point_2;
+-- Result: Salesman commissions are updated, but the 10% raise is rolled back.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">34</span>
+        <span class="q-text">Grant privileges to a user, perform DML operations, and commit changes.</span>
+        <span class="schema-note">(GRANT + TRANSACTION)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Step 1: Grant Access
+GRANT INSERT, UPDATE ON EMP TO USER_A;
+
+-- Step 2: (Logged in as USER_A)
+INSERT INTO EMP (EMPNO, ENAME, SAL) VALUES (2002, 'ANJU', 3200);
+COMMIT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">35</span>
+        <span class="q-text">Revoke privileges and verify access restrictions using EMP table.</span>
+        <span class="schema-note">(REVOKE – PRACTICAL SCENARIO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Step 1: Revoke Access
+REVOKE SELECT ON EMP FROM USER_B;
+
+-- Step 2: Verification (Logged in as USER_B)
+SELECT * FROM EMP; 
+-- Result: "ORA-00942: table or view does not exist" 
+-- (Privilege verification successful)
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

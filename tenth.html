@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Date Functions Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .schema-note {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0 0 40px;
+            font-style: italic;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        code {
+            color: #d19a66; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>SCALAR FUNCTION</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Display employee name, hire date, and current date. Also calculate the number of days the employee has worked.</span>
+        <span class="schema-note">EMP (ENAME, HIREDATE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE, SYSDATE, 
+ROUND(SYSDATE - HIREDATE) AS DAYS_WORKED 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Display employee name and hire date in the format: Monday, January 01, 2024.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'Day, Month DD, YYYY') AS FORMATTED_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Find employees who joined in the same month as the current system date (ignore year).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'MM') = TO_CHAR(SYSDATE, 'MM');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Display employee name and the next Monday after their hire date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NEXT_DAY(HIREDATE, 'MONDAY') AS NEXT_MONDAY 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Display employee name and the last day of their joining month.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+LAST_DAY(HIREDATE) AS MONTH_END 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Find employees who have completed more than 10 years in the company.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE MONTHS_BETWEEN(SYSDATE, HIREDATE) / 12 > 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Display employee name and number of months worked in the company.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ROUND(MONTHS_BETWEEN(SYSDATE, HIREDATE)) AS MONTHS_WORKED 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Display employee name, hire date, and hire date after adding 3 years and 6 months.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE, 
+ADD_MONTHS(HIREDATE, 42) AS NEW_DATE 
+FROM EMP;
+-- Note: 3 years (36 months) + 6 months = 42 months
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Find employees hired between two given dates (use TO_DATE).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE HIREDATE BETWEEN TO_DATE('01-JAN-1981', 'DD-MON-YYYY') 
+AND TO_DATE('31-DEC-1982', 'DD-MON-YYYY');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Display the difference in years between SYSDATE and hire date (rounded).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ROUND(MONTHS_BETWEEN(SYSDATE, HIREDATE) / 12) AS YEARS_WORKED 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Display employee name, hire date, and the day of the week on which the employee joined (e.g., Sunday).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE, 
+TO_CHAR(HIREDATE, 'Day') AS JOINING_DAY 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Display employees who joined on a 'FRIDAY'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TRIM(TO_CHAR(HIREDATE, 'DAY')) = 'FRIDAY';
+-- Note: TRIM is used because TO_CHAR can add padding spaces to the day name.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Display employee name and hire date, showing the month name in short form (e.g., JAN, FEB).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DD-MON-YYYY') AS SHORT_MONTH_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Display employees who joined in the first half of any month (before the 16th).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'DD') < '16';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Display employee name and how many months are left in the year from their hire date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+MONTHS_BETWEEN(TRUNC(HIREDATE, 'YEAR') + INTERVAL '1' YEAR - INTERVAL '1' DAY, HIREDATE) AS MONTHS_REMAINING 
+FROM EMP;
+-- Alternatively:
+SELECT ENAME, 
+12 - TO_CHAR(HIREDATE, 'MM') AS MONTHS_LEFT 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Display employee name and hire date truncated to the nearest month.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TRUNC(HIREDATE, 'MM') AS TRUNCATED_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Display employee name and hire date rounded to the nearest year.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ROUND(HIREDATE, 'YYYY') AS ROUNDED_YEAR 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Display employees who joined in the year 1981.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'YYYY') = '1981';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Display employee name and their hire date in 'DD/MM/YY' format.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DD/MM/YY') AS FORMATTED_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Display employee name and the date 6 months before they were hired.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ADD_MONTHS(HIREDATE, -6) AS SIX_MONTHS_PRIOR 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Display employee name and hire date rounded to the nearest month.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ROUND(HIREDATE, 'MONTH') AS ROUNDED_MONTH 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Display employee name and hire date truncated to the nearest year.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TRUNC(HIREDATE, 'YEAR') AS TRUNCATED_YEAR 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Display employee name and the first day of the month in which they were hired.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TRUNC(HIREDATE, 'MM') AS FIRST_DAY_OF_MONTH 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Display employee name and the date of the next Sunday after their join date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NEXT_DAY(HIREDATE, 'SUNDAY') AS NEXT_SUNDAY 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">25</span>
+        <span class="q-text">Display employee name and the last day of the current month.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+LAST_DAY(SYSDATE) AS END_OF_CURRENT_MONTH 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">26</span>
+        <span class="q-text">Display employee name and hire date, showing only the last two digits of the year.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'YY') AS JOIN_YEAR_SHORT 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">27</span>
+        <span class="q-text">Display employees who joined between 1980 and 1982.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE HIREDATE BETWEEN TO_DATE('01-JAN-1980', 'DD-MON-YYYY') 
+AND TO_DATE('31-DEC-1982', 'DD-MON-YYYY');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">28</span>
+        <span class="q-text">Display employee name and hire date in the format 'DD-MM-YYYY'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DD-MM-YYYY') AS FORMATTED_HIREDATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">29</span>
+        <span class="q-text">Display employee name and the number of years between current date and hire date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TRUNC(MONTHS_BETWEEN(SYSDATE, HIREDATE) / 12) AS YEARS_SERVICE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">30</span>
+        <span class="q-text">Display employee name and the date they will complete 50 years of service.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ADD_MONTHS(HIREDATE, 50 * 12) AS FIFTY_YEAR_ANNIVERSARY 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">31</span>
+        <span class="q-text">Display employee name and hire date in the format: 'DDth Month YYYY' (e.g., 17th December 1980).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DDth Month YYYY') AS ORDINAL_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">32</span>
+        <span class="q-text">Display employee name and the day number of the year they were hired (1-366).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DDD') AS DAY_OF_YEAR 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">33</span>
+        <span class="q-text">Display employee name and the quarter in which they joined (1-4).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'Q') AS JOINING_QUARTER 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">34</span>
+        <span class="q-text">Display employee name and the week number of the year they joined.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'WW') AS WEEK_NUMBER 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">35</span>
+        <span class="q-text">Display employees who joined in the month of 'DECEMBER'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TRIM(TO_CHAR(HIREDATE, 'MONTH')) = 'DECEMBER';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">36</span>
+        <span class="q-text">Display employee name and their hire date showing time as 'HH:MI:SS AM'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DD-MON-YYYY HH:MI:SS AM') AS TIME_STAMP 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">37</span>
+        <span class="q-text">Find the number of employees joined in each month.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT TO_CHAR(HIREDATE, 'Month') AS JOIN_MONTH, 
+COUNT(*) AS TOTAL_EMPLOYEES 
+FROM EMP 
+GROUP BY TO_CHAR(HIREDATE, 'Month');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">38</span>
+        <span class="q-text">Display employee name and hire date, excluding those who joined in 1981.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'YYYY') != '1981';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">39</span>
+        <span class="q-text">Display employee name and the date 100 days after their joining.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+(HIREDATE + 100) AS HUNDRED_DAYS_AFTER 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">40</span>
+        <span class="q-text">Display employee name and hire date for employees who joined on the 1st of any month.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'DD') = '01';
+            </div>
+        </details>
+    </div><div class="question-card">
+        <span class="q-number">31</span>
+        <span class="q-text">Display employee name and hire date in the format: 'DDth Month YYYY' (e.g., 17th December 1980).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DDth Month YYYY') AS ORDINAL_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">32</span>
+        <span class="q-text">Display employee name and the day number of the year they were hired (1-366).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DDD') AS DAY_OF_YEAR 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">33</span>
+        <span class="q-text">Display employee name and the quarter in which they joined (1-4).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'Q') AS JOINING_QUARTER 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">34</span>
+        <span class="q-text">Display employee name and the week number of the year they joined.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'WW') AS WEEK_NUMBER 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">35</span>
+        <span class="q-text">Display employees who joined in the month of 'DECEMBER'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TRIM(TO_CHAR(HIREDATE, 'MONTH')) = 'DECEMBER';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">36</span>
+        <span class="q-text">Display employee name and their hire date showing time as 'HH:MI:SS AM'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'DD-MON-YYYY HH:MI:SS AM') AS TIME_STAMP 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">37</span>
+        <span class="q-text">Find the number of employees joined in each month.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT TO_CHAR(HIREDATE, 'Month') AS JOIN_MONTH, 
+COUNT(*) AS TOTAL_EMPLOYEES 
+FROM EMP 
+GROUP BY TO_CHAR(HIREDATE, 'Month');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">38</span>
+        <span class="q-text">Display employee name and hire date, excluding those who joined in 1981.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'YYYY') != '1981';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">39</span>
+        <span class="q-text">Display employee name and the date 100 days after their joining.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+(HIREDATE + 100) AS HUNDRED_DAYS_AFTER 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">40</span>
+        <span class="q-text">Display employee name and hire date for employees who joined on the 1st of any month.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'DD') = '01';
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">41</span>
+        <span class="q-text">Display employee name and hire date for employees who joined in the second half of the year (July to December).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'MM') > '06';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">42</span>
+        <span class="q-text">Display employee name and the number of days until the end of the year from their hire date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TRUNC(HIREDATE, 'YYYY') + INTERVAL '1' YEAR - 1 - HIREDATE AS DAYS_UNTIL_YEAR_END 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">43</span>
+        <span class="q-text">Display employees who joined in a leap year.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE MOD(TO_CHAR(HIREDATE, 'YYYY'), 4) = 0 
+AND (MOD(TO_CHAR(HIREDATE, 'YYYY'), 100) != 0 OR MOD(TO_CHAR(HIREDATE, 'YYYY'), 400) = 0);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">44</span>
+        <span class="q-text">Display employee name and hire date for those who joined in the month of 'MAY'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'MON') = 'MAY';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">45</span>
+        <span class="q-text">Display employee name and the date 25 years after their joining date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ADD_MONTHS(HIREDATE, 25 * 12) AS TWENTY_FIVE_YEAR_MARK 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">46</span>
+        <span class="q-text">Display employees who joined on the same day of the week as the current date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'Day') = TO_CHAR(SYSDATE, 'Day');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">47</span>
+        <span class="q-text">Display employee name and hire date in the format: 'Day, DD-Month-YYYY'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'Day, DD-Month-YYYY') AS FULL_DATE_FORMAT 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">48</span>
+        <span class="q-text">Find employees who joined in the month that has 31 days.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TO_CHAR(LAST_DAY(HIREDATE), 'DD') = '31';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">49</span>
+        <span class="q-text">Display employee name and the hire date showing the day name in short form (e.g., Mon, Tue).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'Dy, DD-MON-YYYY') AS SHORT_DAY_FORMAT 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">50</span>
+        <span class="q-text">Display employee name and the exact date when they will complete 40 years, 6 months, and 10 days of service.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ADD_MONTHS(HIREDATE, (40 * 12) + 6) + 10 AS COMPLETION_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">51</span>
+        <span class="q-text">Display employee name and the name of the month they joined (e.g., January).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'Month') AS JOIN_MONTH 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">52</span>
+        <span class="q-text">Display employees who joined in the last quarter of the year (Oct, Nov, Dec).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'Q') = '4';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">53</span>
+        <span class="q-text">Find the total number of employees who joined in each year.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT TO_CHAR(HIREDATE, 'YYYY') AS JOIN_YEAR, 
+COUNT(*) AS EMPLOYEE_COUNT 
+FROM EMP 
+GROUP BY TO_CHAR(HIREDATE, 'YYYY');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">54</span>
+        <span class="q-text">Display employee name and hire date for employees who joined in an even-numbered month (2, 4, 6, etc.).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE MOD(TO_CHAR(HIREDATE, 'MM'), 2) = 0;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">55</span>
+        <span class="q-text">Display employee name and hire date for those hired in the month of 'JUNE'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, HIREDATE 
+FROM EMP 
+WHERE TO_CHAR(HIREDATE, 'MON') = 'JUN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">56</span>
+        <span class="q-text">Display employees hired before the year 1982.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE HIREDATE < TO_DATE('01-JAN-1982', 'DD-MON-YYYY');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">57</span>
+        <span class="q-text">Display employee name and the day they joined, but only if they joined on a Weekend (Saturday or Sunday).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, TO_CHAR(HIREDATE, 'Day') AS JOIN_DAY 
+FROM EMP 
+WHERE TRIM(TO_CHAR(HIREDATE, 'DAY')) IN ('SATURDAY', 'SUNDAY');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">58</span>
+        <span class="q-text">Display employee name and hire date in the format 'YYYY-MM-DD'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+TO_CHAR(HIREDATE, 'YYYY-MM-DD') AS ISO_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">59</span>
+        <span class="q-text">Find the employee who has the longest tenure (hired earliest).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE HIREDATE = (SELECT MIN(HIREDATE) FROM EMP);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">60</span>
+        <span class="q-text">Display employee name and the hire date after subtracting 3 months and 15 days.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+ADD_MONTHS(HIREDATE, -3) - 15 AS ADJUSTED_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

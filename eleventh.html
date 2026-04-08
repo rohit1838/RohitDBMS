@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Null Functions Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .schema-note {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0 0 40px;
+            font-style: italic;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>JOINS</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">What is the purpose of the NVL function in SQL?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+The **NVL** function is used to replace a NULL value with a specific value. 
+**Syntax:** NVL(expression, replacement_value)
+If the expression is NULL, it returns the replacement value; otherwise, it returns the original value.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Display employee name and commission. If commission is NULL, display 0.</span>
+        <span class="schema-note">EMP (ENAME, COMM)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, NVL(COMM, 0) AS COMMISSION 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">What is the difference between NVL and NVL2?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+- **NVL(exp, val1):** Returns val1 if exp is NULL.
+- **NVL2(exp, val1, val2):** Returns val1 if exp is NOT NULL, and returns val2 if exp is NULL.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Display employee name and a column named 'Income_Type'. If commission is NULL, display 'Salary Only', otherwise display 'Salary + Comm'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL2(COMM, 'Salary + Comm', 'Salary Only') AS INCOME_TYPE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Explain the NULLIF function.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+The **NULLIF** function compares two expressions. 
+If they are equal, the function returns NULL. If they are not equal, it returns the first expression.
+**Syntax:** NULLIF(exp1, exp2)
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Display employee name, job, and a column showing NULL if the job is 'CLERK'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, JOB, 
+NULLIF(JOB, 'CLERK') AS JOB_CHECK 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">What is the COALESCE function?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+**COALESCE** returns the first non-null expression in a list. 
+It can take multiple arguments and evaluates them in order.
+**Syntax:** COALESCE(val1, val2, ..., valN)
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Display employee name and their 'Contact_Info'. Use commission, if NULL use manager ID, if that is also NULL use 'No Info'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+COALESCE(TO_CHAR(COMM), TO_CHAR(MGR), 'No Info') AS CONTACT_INFO 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Display employee name and total annual income (Salary + Commission). Ensure NULL commissions don't break the calculation.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+(SAL + NVL(COMM, 0)) * 12 AS ANNUAL_INCOME 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Using NVL, display employee name and 'No Manager' for employees who don't have a manager.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL(TO_CHAR(MGR), 'No Manager') AS MANAGER_ID 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Display employee name, salary, commission, and a column showing 0 if commission is NULL using the COALESCE function.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, SAL, COMM, 
+COALESCE(COMM, 0) AS COMM_CHECK 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Display employee name and a column named 'MGR_STATUS'. If MGR is NULL, display 'Top Boss', otherwise display the Manager ID.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL(TO_CHAR(MGR), 'Top Boss') AS MGR_STATUS 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Calculate the total monthly remuneration for each employee (SAL + COMM). Ensure employees with NULL commission still show their salary as the total.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, SAL, COMM, 
+(SAL + NVL(COMM, 0)) AS TOTAL_REMUNERATION 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Display employee name and commission. If commission is 0, show it as NULL using the NULLIF function.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NULLIF(COMM, 0) AS COMM_AS_NULL 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Display employee name and a 'Bonus' column. If commission is NOT NULL, bonus is 500; if commission IS NULL, bonus is 100. (Use NVL2)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL2(COMM, 500, 100) AS BONUS 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Display employees who do not have a commission (COMM IS NULL).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Display employees who have a commission (COMM IS NOT NULL).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NOT NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Display employee name and job. If the job is the same as 'PRESIDENT', display NULL.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NULLIF(JOB, 'PRESIDENT') AS JOB_HIDE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Calculate average commission. Use NVL to include employees with NULL commission in the average calculation.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT AVG(NVL(COMM, 0)) AS AVG_COMM_ALL 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Display employee name, MGR, and COMM. Show the first available numeric value among them using COALESCE.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, MGR, COMM, 
+COALESCE(MGR, COMM, 0) AS FIRST_VALUE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Display employee name, hire date, and a column 'Hire_Status'. If hired before 1982, display 'Old Employee', otherwise 'New Employee'. (Use NVL2 logic with dates)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Note: Using CASE or DECODE is standard, but to follow NVL2 style:
+SELECT ENAME, HIREDATE,
+CASE 
+    WHEN HIREDATE < TO_DATE('01-JAN-1982', 'DD-MON-YYYY') THEN 'Old Employee'
+    ELSE 'New Employee'
+END AS HIRE_STATUS
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Display employee name and commission. If commission is NULL, display the text 'No Commission' using the TO_CHAR and NVL functions.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL(TO_CHAR(COMM), 'No Commission') AS COMMISSION_INFO 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Display employee name, job, and MGR. If MGR is NULL, show the employee's own EMPNO as their manager ID using COALESCE.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, JOB, 
+COALESCE(MGR, EMPNO) AS MGR_ID_CHECK 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Display employee name and salary. If salary is 3000, show it as NULL using NULLIF.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NULLIF(SAL, 3000) AS SALARY_HIDE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">25</span>
+        <span class="q-text">Display employee name, commission, and a column 'Comm_Check'. If commission is NOT NULL, display the commission; if NULL, display 100. (Use NVL)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, COMM, 
+NVL(COMM, 100) AS COMM_CHECK 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">26</span>
+        <span class="q-text">Calculate the total annual compensation: (SAL * 12) + COMM. Ensure NULL commissions do not result in a NULL total.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+(SAL * 12) + NVL(COMM, 0) AS TOTAL_ANNUAL_COMP 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">27</span>
+        <span class="q-text">Display employee name and a column 'Review_Needed'. If MGR is NULL, display 'Yes', otherwise 'No'. (Use NVL2)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL2(MGR, 'No', 'Yes') AS REVIEW_NEEDED 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">28</span>
+        <span class="q-text">Display employee name and job. If the job is 'MANAGER', return NULL, otherwise return the job.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NULLIF(JOB, 'MANAGER') AS JOB_NULLIFIED 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">29</span>
+        <span class="q-text">Display employee name and hire date. If hire date is NULL (hypothetically), show the current system date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL(HIREDATE, SYSDATE) AS FINAL_HIRE_DATE 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">30</span>
+        <span class="q-text">Display the average salary of employees, but use COALESCE to treat any potential NULL salaries as 0.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT AVG(COALESCE(SAL, 0)) AS AVG_SALARY 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">31</span>
+        <span class="q-text">Display employee name and a column 'Comm_Status'. If commission is NULL, show 'N/A'; otherwise, show the actual commission value.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL(TO_CHAR(COMM), 'N/A') AS COMM_STATUS 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">32</span>
+        <span class="q-text">Find employees who have neither a manager nor a commission.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE MGR IS NULL AND COMM IS NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">33</span>
+        <span class="q-text">Display employee name and the first non-null value among Commission, Manager ID, and Department Number.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+COALESCE(COMM, MGR, DEPTNO) AS FIRST_NON_NULL 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">34</span>
+        <span class="q-text">Display employee name and their job. If the job is 'ANALYST', show it as NULL.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NULLIF(JOB, 'ANALYST') AS JOB_CHECK 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">35</span>
+        <span class="q-text">Display employee name and a 'Verification' column. If MGR is NOT NULL, show 'Verified'; if NULL, show 'Unverified'. (Use NVL2)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL2(MGR, 'Verified', 'Unverified') AS VERIFICATION 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">36</span>
+        <span class="q-text">Calculate the commission percentage of salary (COMM/SAL). Ensure employees with NULL commission show 0 as the result.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL(COMM, 0) / SAL AS COMM_PERCENT 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">37</span>
+        <span class="q-text">Display employee name, job, and commission. If the job is 'SALESMAN', use NULLIF to return NULL if their commission is exactly 300.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, JOB, 
+NULLIF(COMM, 300) AS ADJUSTED_COMM 
+FROM EMP 
+WHERE JOB = 'SALESMAN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">38</span>
+        <span class="q-text">Display employee name and 'Payout'. If commission is present, Payout is 'Comm'; if not, Payout is 'Base only'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NVL2(COMM, 'Comm', 'Base only') AS PAYOUT 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">39</span>
+        <span class="q-text">Find the maximum commission value. Use NVL to treat NULLs as -1 so they appear at the bottom of a sort (if necessary).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT MAX(NVL(COMM, -1)) AS MAX_COMM_ADJUSTED 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">40</span>
+        <span class="q-text">Display employee name and hire date. If the year is 1981, return NULL using NULLIF; otherwise, return the hire date year.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, 
+NULLIF(TO_CHAR(HIREDATE, 'YYYY'), '1981') AS YEAR_CHECK 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

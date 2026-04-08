@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PL/SQL Fundamentals Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .schema-note {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0 0 40px;
+            font-style: italic;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        code {
+            color: #d19a66; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>PL/SQL FUNDAMENTALS</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Write a PL/SQL block to print your name and city in two separate lines.</span>
+        <span class="schema-note">(Output Statement)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Name: Rahul');
+  DBMS_OUTPUT.PUT_LINE('City: Delhi');
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Write a PL/SQL block to display numbers from 1 to 5 using DBMS_OUTPUT.PUT_LINE.</span>
+        <span class="schema-note">(Output Statement)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+BEGIN
+  DBMS_OUTPUT.PUT_LINE(1);
+  DBMS_OUTPUT.PUT_LINE(2);
+  DBMS_OUTPUT.PUT_LINE(3);
+  DBMS_OUTPUT.PUT_LINE(4);
+  DBMS_OUTPUT.PUT_LINE(5);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Write a PL/SQL block to print the current system date.</span>
+        <span class="schema-note">(Output Statement)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Today is: ' || SYSDATE);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Write a PL/SQL block to display employee name and salary (use variables).</span>
+        <span class="schema-note">(Output + Variables)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_name VARCHAR2(20) := 'SMITH';
+  v_sal  NUMBER(7,2) := 800;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Employee: ' || v_name);
+  DBMS_OUTPUT.PUT_LINE('Salary: ' || v_sal);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Write a PL/SQL block to declare a variable and assign your age, then display it.</span>
+        <span class="schema-note">(Variables)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_age NUMBER(3) := 21;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('My age is: ' || v_age);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Write a PL/SQL block to declare two variables and print their sum.</span>
+        <span class="schema-note">(Variables)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num1 NUMBER := 10;
+  v_num2 NUMBER := 20;
+  v_sum  NUMBER;
+BEGIN
+  v_sum := v_num1 + v_num2;
+  DBMS_OUTPUT.PUT_LINE('Sum is: ' || v_sum);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Write a PL/SQL block to store employee name and salary in variables and display them.</span>
+        <span class="schema-note">(Variables)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_ename emp.ename%TYPE;
+  v_sal   emp.sal%TYPE;
+BEGIN
+  SELECT ename, sal INTO v_ename, v_sal 
+  FROM emp 
+  WHERE empno = 7369;
+  
+  DBMS_OUTPUT.PUT_LINE('Name: ' || v_ename || ' | Sal: ' || v_sal);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Write a PL/SQL block to swap two numbers using variables.</span>
+        <span class="schema-note">(Variables)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_a NUMBER := 10;
+  v_b NUMBER := 20;
+  v_temp NUMBER;
+BEGIN
+  v_temp := v_a;
+  v_a := v_b;
+  v_b := v_temp;
+  DBMS_OUTPUT.PUT_LINE('A: ' || v_a || ' B: ' || v_b);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Write a PL/SQL block to calculate area of a rectangle using variables.</span>
+        <span class="schema-note">(Variables)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_length NUMBER := 10;
+  v_width  NUMBER := 5;
+  v_area   NUMBER;
+BEGIN
+  v_area := v_length * v_width;
+  DBMS_OUTPUT.PUT_LINE('Area: ' || v_area);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Write a PL/SQL block to declare a constant value for PI and calculate area of a circle.</span>
+        <span class="schema-note">(Constants)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  c_pi     CONSTANT NUMBER := 3.14159;
+  v_radius NUMBER := 5;
+  v_area   NUMBER;
+BEGIN
+  v_area := c_pi * POWER(v_radius, 2);
+  DBMS_OUTPUT.PUT_LINE('Circle Area: ' || ROUND(v_area, 2));
+END;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Write a PL/SQL block to declare a constant tax rate and calculate total salary after tax.</span>
+        <span class="schema-note">(Constants)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_sal      NUMBER(10,2) := 5000;
+  c_tax_rate CONSTANT NUMBER(3,2) := 0.10; -- 10% tax
+  v_net_sal  NUMBER(10,2);
+BEGIN
+  v_net_sal := v_sal - (v_sal * c_tax_rate);
+  DBMS_OUTPUT.PUT_LINE('Net Salary: ' || v_net_sal);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Write a PL/SQL block where constant value cannot be changed (try modifying and observe error).</span>
+        <span class="schema-note">(Constants)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  c_bonus CONSTANT NUMBER := 500;
+BEGIN
+  c_bonus := 600; -- This line will cause an error
+  DBMS_OUTPUT.PUT_LINE(c_bonus);
+END;
+
+-- Error: ORA-06550: expression 'C_BONUS' cannot be used as an assignment target
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Write a PL/SQL block to calculate simple interest using constant rate of interest.</span>
+        <span class="schema-note">(Constants)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_p    NUMBER := 10000;
+  v_t    NUMBER := 2;
+  c_r    CONSTANT NUMBER := 7.5;
+  v_si   NUMBER;
+BEGIN
+  v_si := (v_p * v_t * c_r) / 100;
+  DBMS_OUTPUT.PUT_LINE('Simple Interest: ' || v_si);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Write a PL/SQL block using different datatypes: NUMBER, VARCHAR2, DATE.</span>
+        <span class="schema-note">(Datatypes)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_id    NUMBER := 101;
+  v_name  VARCHAR2(30) := 'John Doe';
+  v_today DATE := SYSDATE;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('ID: ' || v_id);
+  DBMS_OUTPUT.PUT_LINE('Name: ' || v_name);
+  DBMS_OUTPUT.PUT_LINE('Date: ' || v_today);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Write a PL/SQL block to declare a variable using %TYPE from EMP table salary column.</span>
+        <span class="schema-note">(Datatypes)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_salary EMP.SAL%TYPE;
+BEGIN
+  SELECT SAL INTO v_salary FROM EMP WHERE EMPNO = 7902;
+  DBMS_OUTPUT.PUT_LINE('Salary using %TYPE: ' || v_salary);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Write a PL/SQL block to declare a record using %ROWTYPE and display employee details.</span>
+        <span class="schema-note">(Datatypes)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_emp_rec EMP%ROWTYPE;
+BEGIN
+  SELECT * INTO v_emp_rec FROM EMP WHERE EMPNO = 7788;
+  DBMS_OUTPUT.PUT_LINE('Name: ' || v_emp_rec.ENAME);
+  DBMS_OUTPUT.PUT_LINE('Job: ' || v_emp_rec.JOB);
+  DBMS_OUTPUT.PUT_LINE('Dept: ' || v_emp_rec.DEPTNO);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Write a PL/SQL block to store and display current date using DATE datatype.</span>
+        <span class="schema-note">(Datatypes)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_curr_date DATE := SYSDATE;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Current System Date: ' || v_curr_date);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Write a PL/SQL block to convert number to string and display it.</span>
+        <span class="schema-note">(Datatypes + Conversion)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num NUMBER := 1234;
+  v_str VARCHAR2(10);
+BEGIN
+  v_str := TO_CHAR(v_num);
+  DBMS_OUTPUT.PUT_LINE('Converted String: ' || v_str);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Write a PL/SQL block using variables, constants, and output statement together.</span>
+        <span class="schema-note">(Combined Concepts)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  c_org_name CONSTANT VARCHAR2(20) := 'Oracle Corp';
+  v_user_name VARCHAR2(20) := 'SCOTT';
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Welcome ' || v_user_name || ' to ' || c_org_name);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Write a PL/SQL block to display employee details using %ROWTYPE, constants, and comments.</span>
+        <span class="schema-note">(Combined Concepts)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  -- Declare constant for formatting
+  c_label CONSTANT VARCHAR2(10) := 'EMP INFO: ';
+  v_rec   EMP%ROWTYPE;
+BEGIN
+  /* Fetch data for a specific employee */
+  SELECT * INTO v_rec FROM EMP WHERE EMPNO = 7839;
+  
+  -- Print details
+  DBMS_OUTPUT.PUT_LINE(c_label || v_rec.ENAME || ' works as ' || v_rec.JOB);
+END;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Write a PL/SQL block to calculate bonus (10% of salary) and display result using proper comments.</span>
+        <span class="schema-note">(Variables + Output + Comments)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_sal   NUMBER(10,2) := 3000; -- Original Salary
+  v_bonus NUMBER(10,2);        -- Variable to store calculated bonus
+BEGIN
+  -- Calculate 10% bonus
+  v_bonus := v_sal * 0.10;
+  
+  /* Output the final result 
+     to the console */
+  DBMS_OUTPUT.PUT_LINE('Bonus Amount: ' || v_bonus);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Write a PL/SQL block that uses all concepts: variable, constant, datatype, and output.</span>
+        <span class="schema-note">(Full Practice)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  -- Constant declaration
+  c_company   CONSTANT VARCHAR2(30) := 'Tech Solutions';
+  
+  -- Variable using %TYPE datatype
+  v_emp_name  EMP.ENAME%TYPE;
+  
+  -- Standard variable
+  v_project_count NUMBER := 5;
+BEGIN
+  -- Data Retrieval
+  SELECT ENAME INTO v_emp_name FROM EMP WHERE EMPNO = 7839;
+  
+  -- Output combined results
+  DBMS_OUTPUT.PUT_LINE('Company: ' || c_company);
+  DBMS_OUTPUT.PUT_LINE('Employee: ' || v_emp_name);
+  DBMS_OUTPUT.PUT_LINE('Assigned Projects: ' || v_project_count);
+END;
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

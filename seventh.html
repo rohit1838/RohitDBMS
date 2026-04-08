@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggregate Functions - SQL Practice</title>
+    <style>
+        :root {
+            --bg-gray: #f8f9fa;
+            --primary-yellow: #ffc107;
+            --text-dark: #333;
+            --card-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            --code-bg: #1e1e1e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-gray);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+        }
+
+        .header-section {
+            max-width: 800px;
+            margin: 40px auto 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .go-back {
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: black;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .q-badge {
+            background: var(--primary-yellow);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 14px;
+            position: absolute;
+            left: 25px;
+            top: 25px;
+        }
+
+        .question-content {
+            padding-left: 45px;
+        }
+
+        .schema-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-family: monospace;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 17px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .show-answer-btn {
+            background: none;
+            border: none;
+            color: #444;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .show-answer-btn::before {
+            content: '▶';
+            font-size: 10px;
+            margin-right: 8px;
+            transition: transform 0.2s;
+        }
+
+        .show-answer-btn.active::before {
+            transform: rotate(90deg);
+        }
+
+        .answer-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-top: 15px;
+        }
+
+        .answer-panel.expanded {
+            max-height: 300px;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            border-left: 4px solid var(--primary-yellow);
+        }
+
+        .comment {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-section">
+    <h1>Aggregate Functions</h1>
+    <a href="../index.html" class="go-back">← Go Back</a>
+</div>
+
+<div class="container">
+
+    <div class="question-card">
+        <div class="q-badge">1</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the total number of employees.</span>
+            
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT COUNT(*) FROM EMP;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">2</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the total salary of all employees.</span>
+            
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT SUM(SAL) FROM EMP;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">3</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the average salary of all employees.</span>
+            
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT AVG(SAL) FROM EMP;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">4</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the highest salary.</span>
+            
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT MAX(SAL) FROM EMP;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card question-card">
+        <div class="q-badge">5</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the lowest salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT MIN(SAL) FROM EMP;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">6</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the total number of departments in EMP table.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block"><span class="comment">-- Use DISTINCT to count unique department IDs</span>
+SELECT COUNT(DISTINCT DEPTNO) FROM EMP;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">7</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the number of employees who are managers.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT COUNT(*) FROM EMP WHERE JOB = 'MANAGER';</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">8</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the total commission paid to employees.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT SUM(COMM) FROM EMP;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">9</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the average commission.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT AVG(COMM) FROM EMP;</div>
+            </div>
+        </div>
+    </div>
+    <div class="question-card">
+        <div class="q-badge">10</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the number of employees who are getting commission.</span>
+            
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT COUNT(COMM) FROM EMP;
+
+/* OR */
+SELECT COUNT(*) FROM EMP WHERE COMM IS NOT NULL AND COMM > 0;</div>
+            </div>
+        </div>
+    </div>
+    <div class="question-card">
+        <div class="q-badge">11</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise total salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, SUM(SAL) 
+FROM EMP 
+GROUP BY DEPTNO;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">12</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise average salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, AVG(SAL) 
+FROM EMP 
+GROUP BY DEPTNO;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">13</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise number of employees.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, COUNT(*) 
+FROM EMP 
+GROUP BY DEPTNO;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">14</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job-wise number of employees.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, COUNT(*) 
+FROM EMP 
+GROUP BY JOB;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">15</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job-wise total salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, SUM(SAL) 
+FROM EMP 
+GROUP BY JOB;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">16</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job-wise maximum salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, MAX(SAL) 
+FROM EMP 
+GROUP BY JOB;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">17</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job-wise minimum salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, MIN(SAL) 
+FROM EMP 
+GROUP BY JOB;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">18</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise maximum salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, MAX(SAL) 
+FROM EMP 
+GROUP BY DEPTNO;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">19</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise minimum salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, MIN(SAL) 
+FROM EMP 
+GROUP BY DEPTNO;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">20</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise average commission.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, AVG(COMM) 
+FROM EMP 
+GROUP BY DEPTNO;</div>
+            </div>
+        </div>
+    </div>
+    <div class="question-card">
+        <div class="q-badge">21</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise job-wise number of employees.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, JOB, COUNT(*) 
+FROM EMP 
+GROUP BY DEPTNO, JOB;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">22</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise job-wise total salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, JOB, SUM(SAL) 
+FROM EMP 
+GROUP BY DEPTNO, JOB;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">23</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department-wise job-wise average salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, JOB, AVG(SAL) 
+FROM EMP 
+GROUP BY DEPTNO, JOB;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">24</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job-wise department-wise maximum salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, DEPTNO, MAX(SAL) 
+FROM EMP 
+GROUP BY JOB, DEPTNO;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">25</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job-wise department-wise minimum salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, DEPTNO, MIN(SAL) 
+FROM EMP 
+GROUP BY JOB, DEPTNO;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">26</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department and job having highest total salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, JOB, SUM(SAL) 
+FROM EMP 
+GROUP BY DEPTNO, JOB 
+ORDER BY SUM(SAL) DESC 
+FETCH FIRST 1 ROWS ONLY;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">27</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department where sum of salaries is maximum.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, SUM(SAL) 
+FROM EMP 
+GROUP BY DEPTNO 
+HAVING SUM(SAL) = (SELECT MAX(SUM(SAL)) FROM EMP GROUP BY DEPTNO);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">28</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job having minimum average salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, AVG(SAL) 
+FROM EMP 
+GROUP BY JOB 
+HAVING AVG(SAL) = (SELECT MIN(AVG(SAL)) FROM EMP GROUP BY JOB);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">29</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display jobs having average salary greater than department-wise average salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, AVG(SAL) 
+FROM EMP 
+GROUP BY JOB 
+HAVING AVG(SAL) > (SELECT AVG(SAL) FROM EMP);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">30</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department having highest number of employees.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, COUNT(*) 
+FROM EMP 
+GROUP BY DEPTNO 
+HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM EMP GROUP BY DEPTNO);</div>
+            </div>
+        </div>
+    </div>
+    <div class="question-card">
+        <div class="q-badge">31</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department numbers having more than 3 employees.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO 
+FROM EMP 
+GROUP BY DEPTNO 
+HAVING COUNT(*) > 3;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">32</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display jobs having total salary greater than 5000.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, SUM(SAL) 
+FROM EMP 
+GROUP BY JOB 
+HAVING SUM(SAL) > 5000;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">33</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department numbers having average salary greater than 2000.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, AVG(SAL) 
+FROM EMP 
+GROUP BY DEPTNO 
+HAVING AVG(SAL) > 2000;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">34</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display jobs having maximum salary greater than 3000.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB, MAX(SAL) 
+FROM EMP 
+GROUP BY JOB 
+HAVING MAX(SAL) > 3000;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">35</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department numbers having minimum salary less than 1000.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO, MIN(SAL) 
+FROM EMP 
+GROUP BY DEPTNO 
+HAVING MIN(SAL) < 1000;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">36</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the second highest salary from EMP table.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT MAX(SAL) 
+FROM EMP 
+WHERE SAL < (SELECT MAX(SAL) FROM EMP);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">37</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the third highest salary from EMP table.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT MIN(SAL) FROM (
+    SELECT DISTINCT SAL FROM EMP 
+    ORDER BY SAL DESC
+) WHERE ROWNUM <= 3;
+
+/* OR using subqueries */
+SELECT MAX(SAL) FROM EMP WHERE SAL < (
+    SELECT MAX(SAL) FROM EMP WHERE SAL < (SELECT MAX(SAL) FROM EMP)
+);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">38</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department name having maximum number of employees.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DNAME FROM DEPT WHERE DEPTNO = (
+    SELECT DEPTNO FROM EMP 
+    GROUP BY DEPTNO 
+    HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM EMP GROUP BY DEPTNO)
+);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">39</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job having maximum average salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB FROM EMP 
+GROUP BY JOB 
+HAVING AVG(SAL) = (SELECT MAX(AVG(SAL)) FROM EMP GROUP BY JOB);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">40</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department having minimum total salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO FROM EMP 
+GROUP BY DEPTNO 
+HAVING SUM(SAL) = (SELECT MIN(SUM(SAL)) FROM EMP GROUP BY DEPTNO);</div>
+            </div>
+        </div>
+    </div>
+    <div class="question-card">
+        <div class="q-badge">41</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department numbers where there is more than one clerk.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO 
+FROM EMP 
+WHERE JOB = 'CLERK' 
+GROUP BY DEPTNO 
+HAVING COUNT(*) > 1;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">42</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display job names where the number of employees is more than 2.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB 
+FROM EMP 
+GROUP BY JOB 
+HAVING COUNT(*) > 2;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">43</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department numbers where the total salary is less than the average salary of the whole company.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO 
+FROM EMP 
+GROUP BY DEPTNO 
+HAVING SUM(SAL) < (SELECT AVG(SAL) FROM EMP);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">44</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display jobs where the maximum salary is less than the overall average salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB 
+FROM EMP 
+GROUP BY JOB 
+HAVING MAX(SAL) < (SELECT AVG(SAL) FROM EMP);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">45</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the department name that has the highest average salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DNAME FROM DEPT WHERE DEPTNO = (
+    SELECT DEPTNO FROM EMP 
+    GROUP BY DEPTNO 
+    HAVING AVG(SAL) = (SELECT MAX(AVG(SAL)) FROM EMP GROUP BY DEPTNO)
+);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">46</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the job that has the lowest total salary.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB 
+FROM EMP 
+GROUP BY JOB 
+HAVING SUM(SAL) = (SELECT MIN(SUM(SAL)) FROM EMP GROUP BY JOB);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">47</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department numbers having more than one manager.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO 
+FROM EMP 
+WHERE JOB = 'MANAGER' 
+GROUP BY DEPTNO 
+HAVING COUNT(*) > 1;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">48</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the department name where no employees are working.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DNAME 
+FROM DEPT 
+WHERE DEPTNO NOT IN (SELECT DISTINCT DEPTNO FROM EMP WHERE DEPTNO IS NOT NULL);</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">49</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display the job that has more than 3 employees in department 20.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT JOB 
+FROM EMP 
+WHERE DEPTNO = 20 
+GROUP BY JOB 
+HAVING COUNT(*) > 3;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card">
+        <div class="q-badge">50</div>
+        <div class="question-content">
+            <span class="schema-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+            <span class="question-text">Display department numbers where the number of salesman is maximum.</span>
+            <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-panel">
+                <div class="code-block">SELECT DEPTNO 
+FROM EMP 
+WHERE JOB = 'SALESMAN' 
+GROUP BY DEPTNO 
+HAVING COUNT(*) = (
+    SELECT MAX(COUNT(*)) 
+    FROM EMP 
+    WHERE JOB = 'SALESMAN' 
+    GROUP BY DEPTNO
+);</div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+<script>
+    function toggleAnswer(btn) {
+        btn.classList.toggle('active');
+        const panel = btn.nextElementSibling;
+        panel.classList.toggle('expanded');
+    }
+</script>
+
+</body>
+</html>

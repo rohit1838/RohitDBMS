@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL Table Creation - Practice Questions</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f7f9;
+        margin: 0;
+        padding: 40px 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 40px;
+      }
+      .qa-item {
+        background: #fff;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        border: 1px solid #e1e4e8;
+        transition: all 0.3s ease;
+      }
+      .question-btn {
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        outline: none;
+      }
+      .question-btn:hover {
+        background-color: #fcfcfc;
+      }
+      .number-badge {
+        background-color: #ffcc00;
+        color: #000;
+        min-width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 20px;
+        flex-shrink: 0;
+        box-shadow: 0 2px 4px rgba(255, 204, 0, 0.4);
+      }
+      .question-text {
+        font-size: 1.05rem;
+        font-weight: 500;
+        line-height: 1.4;
+        color: #1a1a1a;
+        flex-grow: 1;
+      }
+      .arrow-icon {
+        font-size: 1.5rem;
+        color: #ccc;
+        transition: transform 0.3s ease;
+        margin-left: 10px;
+      }
+      .answer-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background-color: #fafbfc;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .qa-item.active .answer-panel {
+    max-height: 1000px;
+}
+
+      .answer-inner {
+        padding: 20px 20px 20px 72px;
+      }
+      pre {
+        background-color: #2d3436;
+        color: #fab1a0;
+        padding: 15px;
+        border-radius: 6px;
+        font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        overflow-x: auto;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      .qa-item.active {
+        border-color: #ffcc00;
+      }
+      .qa-item.active .arrow-icon {
+        transform: rotate(90deg);
+        color: #ffcc00;
+      }
+      .qa-item.active .answer-panel {
+        max-height: 300px;
+      }
+      .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        text-decoration: none;
+        color: #666;
+        font-size: 0.9rem;
+      }
+      .back-link:hover {
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html" class="back-link">&larr; Back to Dashboard</a>
+      <h1>DDL COMMANDS</h1>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">1</span>
+          <span class="question-text"
+            >Create a table called STUDENT with columns: SID (NUMBER), SNAME
+            (VARCHAR2(30)), AGE (NUMBER), COURSE (VARCHAR2(20))</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE STUDENT (
+    SID NUMBER,
+    SNAME VARCHAR2(30),
+    AGE NUMBER,
+    COURSE VARCHAR2(20)
+);</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">2</span>
+          <span class="question-text"
+            >Create a table EMPLOYEE with columns: EID NUMBER, ENAME
+            VARCHAR2(40), SALARY NUMBER(8,2), DEPTNO NUMBER</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE EMPLOYEE (
+    EID NUMBER,
+    ENAME VARCHAR2(40),
+    SALARY NUMBER(8,2),
+    DEPTNO NUMBER
+);</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">3</span>
+          <span class="question-text"
+            >Create a table DEPARTMENT with columns: DEPTNO NUMBER, DNAME
+            VARCHAR2(30), LOCATION VARCHAR2(30)</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE DEPARTMENT (
+    DEPTNO NUMBER,
+    DNAME VARCHAR2(30),
+    LOCATION VARCHAR2(30)
+);</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">4</span>
+          <span class="question-text"
+            >Create a table BOOK with columns: BOOK_ID NUMBER, TITLE
+            VARCHAR2(50), AUTHOR VARCHAR2(40), PRICE NUMBER</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE BOOK (
+    BOOK_ID NUMBER,
+    TITLE VARCHAR2(50),
+    AUTHOR VARCHAR2(40),
+    PRICE NUMBER
+);</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">5</span>
+          <span class="question-text"
+            >Create a table COURSE with columns: CID NUMBER, CNAME VARCHAR2(40),
+            DURATION NUMBER</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE COURSE (
+    CID NUMBER,
+    CNAME VARCHAR2(40),
+    DURATION NUMBER
+);</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">6</span>
+          <span class="question-text"
+            >Create a table PROJECT with columns: PID NUMBER, PNAME
+            VARCHAR2(50), START_DATE DATE, END_DATE DATE</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE PROJECT (
+    PID NUMBER,
+    PNAME VARCHAR2(50),
+    START_DATE DATE,
+    END_DATE DATE
+);</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">7</span>
+          <span class="question-text"
+            >Create a table CUSTOMER with columns: CID NUMBER, CNAME
+            VARCHAR2(40), CITY VARCHAR2(30), PHONE NUMBER</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE CUSTOMER (
+    CID NUMBER,
+    CNAME VARCHAR2(40),
+    CITY VARCHAR2(30),
+    PHONE NUMBER
+);</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">8</span>
+          <span class="question-text"
+            >Create a table SALES with columns: SALE_ID NUMBER, PRODUCT_NAME
+            VARCHAR2(50), QUANTITY NUMBER, PRICE NUMBER</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE SALES (
+    SALE_ID NUMBER,
+    PRODUCT_NAME VARCHAR2(50),
+    QUANTITY NUMBER,
+    PRICE NUMBER
+);</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+          <span class="number-badge">9</span>
+          <span class="question-text"
+            >Create a table EMP_COPY from the existing EMP table (structure
+            only)</span
+          >
+          <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+          <div class="answer-inner">
+            <pre>
+CREATE TABLE EMP_COPY AS 
+SELECT * FROM EMP 
+WHERE 1=0;</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">10</span>
+            <span class="question-text">Create a table EMP_BACKUP from EMP including data</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>CREATE TABLE EMP_BACKUP AS 
+SELECT * FROM EMP;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">11</span>
+            <span class="question-text">Add a column EMAIL VARCHAR2(50) to the STUDENT table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE STUDENT 
+ADD EMAIL VARCHAR2(50);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">12</span>
+            <span class="question-text">Add a column PHONE NUMBER to the EMPLOYEE table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE EMPLOYEE 
+ADD PHONE NUMBER;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">13</span>
+            <span class="question-text">Modify the column SNAME in STUDENT table to VARCHAR2(50)</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE STUDENT 
+MODIFY SNAME VARCHAR2(50);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">14</span>
+            <span class="question-text">Modify the column SALARY in EMPLOYEE table to NUMBER(10,2)</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE EMPLOYEE 
+MODIFY SALARY NUMBER(10,2);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">15</span>
+            <span class="question-text">Add two columns CITY VARCHAR2(30) and PINCODE NUMBER to CUSTOMER table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE CUSTOMER 
+ADD (CITY VARCHAR2(30), PINCODE NUMBER);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">16</span>
+            <span class="question-text">Rename the column SNAME to STUDENT_NAME in STUDENT table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE STUDENT 
+RENAME COLUMN SNAME TO STUDENT_NAME;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">17</span>
+            <span class="question-text">Drop the column AGE from STUDENT table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE STUDENT 
+DROP COLUMN AGE;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">18</span>
+            <span class="question-text">Set the column SALARY in EMPLOYEE table to NOT NULL</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE EMPLOYEE 
+MODIFY SALARY NOT NULL;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">19</span>
+            <span class="question-text">Increase the size of column TITLE in BOOK table to VARCHAR2(100)</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE BOOK 
+MODIFY TITLE VARCHAR2(100);</pre>
+            </div>
+        </div>
+    </div>
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">20</span>
+            <span class="question-text">Add a column MANAGER_ID NUMBER to EMPLOYEE table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE EMPLOYEE 
+ADD MANAGER_ID NUMBER;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">21</span>
+            <span class="question-text">Drop the table STUDENT</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>DROP TABLE STUDENT;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">22</span>
+            <span class="question-text">Drop the table CUSTOMER from the database</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>DROP TABLE CUSTOMER;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">23</span>
+            <span class="question-text">Drop the table PROJECT permanently</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>DROP TABLE PROJECT PURGE;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">24</span>
+            <span class="question-text">Remove the table SALES</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>DROP TABLE SALES;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">25</span>
+            <span class="question-text">Drop the table COURSE</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>DROP TABLE COURSE;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">26</span>
+            <span class="question-text">Rename the table STUDENT to STUDENTS</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>RENAME STUDENT TO STUDENTS;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">27</span>
+            <span class="question-text">Rename the table EMPLOYEE to EMP_MASTER</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>RENAME EMPLOYEE TO EMP_MASTER;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">28</span>
+            <span class="question-text">Rename the table CUSTOMER to CLIENT</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>RENAME CUSTOMER TO CLIENT;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">29</span>
+            <span class="question-text">Rename the table BOOK to BOOK_DETAILS</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>RENAME BOOK TO BOOK_DETAILS;</pre>
+            </div>
+        </div>
+    </div>
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">30</span>
+            <span class="question-text">Rename the table PROJECT to PROJECT_INFO</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>RENAME PROJECT TO PROJECT_INFO;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">31</span>
+            <span class="question-text">Remove all records from the STUDENT table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>TRUNCATE TABLE STUDENT;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">32</span>
+            <span class="question-text">Delete all rows from EMPLOYEE table using TRUNCATE</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>TRUNCATE TABLE EMPLOYEE;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">33</span>
+            <span class="question-text">Empty the CUSTOMER table quickly</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>TRUNCATE TABLE CUSTOMER;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">34</span>
+            <span class="question-text">Remove all data from SALES table but keep structure</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>TRUNCATE TABLE SALES;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">35</span>
+            <span class="question-text">Clear the PROJECT table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>TRUNCATE TABLE PROJECT;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">36</span>
+            <span class="question-text">Create a table TRAINING with columns TID, TNAME, DURATION</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>CREATE TABLE TRAINING (
+    TID NUMBER,
+    TNAME VARCHAR2(50),
+    DURATION NUMBER
+);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">37</span>
+            <span class="question-text">Add column TRAINER_NAME VARCHAR2(40) to TRAINING</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE TRAINING 
+ADD TRAINER_NAME VARCHAR2(40);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">38</span>
+            <span class="question-text">Modify TNAME column size to VARCHAR2(60)</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>ALTER TABLE TRAINING 
+MODIFY TNAME VARCHAR2(60);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">39</span>
+            <span class="question-text">Rename the TRAINING table to TRAINING_PROGRAM</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>RENAME TRAINING TO TRAINING_PROGRAM;</pre>
+            </div>
+        </div>
+    </div>
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">40</span>
+            <span class="question-text">Truncate the TRAINING_PROGRAM table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>TRUNCATE TABLE TRAINING_PROGRAM;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">41</span>
+            <span class="question-text">Drop the TRAINING_PROGRAM table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>DROP TABLE TRAINING_PROGRAM;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">42</span>
+            <span class="question-text">Create EMP_PROJECT, increase ROLE size, and add STATUS column</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>-- Step 1: Create
+CREATE TABLE EMP_PROJECT (
+    EMP_ID NUMBER,
+    PROJECT_ID NUMBER,
+    START_DATE DATE,
+    END_DATE DATE,
+    ROLE VARCHAR2(30)
+);
+
+-- Step 2: Modify and Add
+ALTER TABLE EMP_PROJECT 
+MODIFY ROLE VARCHAR2(50);
+
+ALTER TABLE EMP_PROJECT 
+ADD STATUS VARCHAR2(20);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">43</span>
+            <span class="question-text">Create PRODUCT table, rename PNAME, and change PRICE datatype</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>-- Step 1: Create
+CREATE TABLE PRODUCT (
+    PID NUMBER,
+    PNAME VARCHAR2(50),
+    PRICE NUMBER,
+    CATEGORY VARCHAR2(30)
+);
+
+-- Step 2: Rename and Modify
+ALTER TABLE PRODUCT 
+RENAME COLUMN PNAME TO PRODUCT_NAME;
+
+ALTER TABLE PRODUCT 
+MODIFY PRICE NUMBER(10,2);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">44</span>
+            <span class="question-text">Create ORDERS, add STATUS, drop then re-add TOTAL_AMOUNT</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>-- Step 1: Create
+CREATE TABLE ORDERS (
+    ORDER_ID NUMBER,
+    CUSTOMER_ID NUMBER,
+    ORDER_DATE DATE,
+    TOTAL_AMOUNT NUMBER
+);
+
+-- Step 2: Alterations
+ALTER TABLE ORDERS ADD STATUS VARCHAR2(20);
+ALTER TABLE ORDERS DROP COLUMN TOTAL_AMOUNT;
+ALTER TABLE ORDERS ADD TOTAL_AMOUNT NUMBER(10,2);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">45</span>
+            <span class="question-text">Create EMP_TEMP (salary > 2000), rename, truncate, and drop</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>CREATE TABLE EMP_TEMP AS 
+SELECT * FROM EMP WHERE SALARY > 2000;
+
+RENAME EMP_TEMP TO EMP_HIGH_SALARY;
+TRUNCATE TABLE EMP_HIGH_SALARY;
+DROP TABLE EMP_HIGH_SALARY;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">46</span>
+            <span class="question-text">Create STUDENT_RECORD, add GRADE, modify MARKS, rename COURSE</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>CREATE TABLE STUDENT_RECORD (
+    SID NUMBER,
+    SNAME VARCHAR2(40),
+    COURSE VARCHAR2(30),
+    MARKS NUMBER
+);
+
+ALTER TABLE STUDENT_RECORD ADD GRADE CHAR(1);
+ALTER TABLE STUDENT_RECORD MODIFY MARKS NUMBER(5,2);
+ALTER TABLE STUDENT_RECORD RENAME COLUMN COURSE TO COURSE_NAME;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">47</span>
+            <span class="question-text">Create EMP_ARCHIVE (structure only), add date, and rename</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>CREATE TABLE EMP_ARCHIVE AS 
+SELECT * FROM EMP WHERE 1=0;
+
+ALTER TABLE EMP_ARCHIVE ADD ARCHIVE_DATE DATE;
+RENAME EMP_ARCHIVE TO EMP_HISTORY;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">48</span>
+            <span class="question-text">Create DEPT_BACKUP with data, drop LOC, and add LOCATION</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>CREATE TABLE DEPT_BACKUP AS 
+SELECT * FROM DEPT;
+
+ALTER TABLE DEPT_BACKUP DROP COLUMN LOC;
+ALTER TABLE DEPT_BACKUP ADD LOCATION VARCHAR2(40);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">49</span>
+            <span class="question-text">Create SALES_DATA, add REGION, modify AMOUNT, and rename table</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>CREATE TABLE SALES_DATA (
+    SALE_ID NUMBER,
+    PRODUCT_ID NUMBER,
+    SALE_DATE DATE,
+    AMOUNT NUMBER
+);
+
+ALTER TABLE SALES_DATA ADD REGION VARCHAR2(30);
+ALTER TABLE SALES_DATA MODIFY AMOUNT NUMBER(12,2);
+RENAME SALES_DATA TO REGIONAL_SALES_DATA;</pre>
+            </div>
+        </div>
+    </div>
+    <div class="qa-item">
+        <button class="question-btn" onclick="toggleItem(this)">
+            <span class="number-badge">50</span>
+            <span class="question-text">Create LOG_TABLE, truncate it, rename to SYSTEM_LOG, and drop permanently</span>
+            <span class="arrow-icon">&rsaquo;</span>
+        </button>
+        <div class="answer-panel">
+            <div class="answer-inner">
+                <pre>-- Step 1: Create the table
+CREATE TABLE LOG_TABLE (
+    LOG_ID NUMBER,
+    USER_NAME VARCHAR2(30),
+    ACTION VARCHAR2(50),
+    LOG_DATE DATE
+);
+
+-- Step 2: Truncate (Remove all data)
+TRUNCATE TABLE LOG_TABLE;
+
+-- Step 3: Rename
+RENAME LOG_TABLE TO SYSTEM_LOG;
+
+-- Step 4: Drop permanently (using PURGE)
+DROP TABLE SYSTEM_LOG PURGE;</pre>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+      function toggleItem(button) {
+        const item = button.parentElement;
+        const panel = item.querySelector('.answer-panel');
+        item.classList.toggle('active');
+        if (item.classList.contains('active')) {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        } else {
+            panel.style.maxHeight = "0";
+        }
+    }
+    </script>
+  </body>
+</html>

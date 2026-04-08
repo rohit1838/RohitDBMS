@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Update Queries</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>SQL Update Queries</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Increase the salary by 10% for employees in DEPTNO 10.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SALARY = SALARY * 1.10
+WHERE DEPTNO = 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Update job of employee SCOTT to 'MANAGER'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET JOB = 'MANAGER' 
+WHERE ENAME = 'SCOTT';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Set commission to zero for employees having commission null.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET COMM = 0
+WHERE COMM IS NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Increase salary of all employees by 2000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SALARY = SALARY + 2000;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Set hiredate to current date for employees in department 20.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Note: Function names vary by DB (CURDATE(), GETDATE(), SYSDATE, etc.)
+UPDATE EMP 
+SET HIREDATE = CURDATE()
+WHERE DEPTNO = 20;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Change location of department 10 to NEW YORK.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE DEPT 
+SET LOC = 'NEW YORK'
+WHERE DEPTNO = 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Increase salary of CLERK by 15%.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SALARY = SALARY * 1.15
+WHERE JOB = 'CLERK';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Change manager of employee ADAMS to CLARK's EMPNO.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET MGR = (SELECT EMPNO FROM (SELECT EMPNO FROM EMP WHERE ENAME = 'CLARK') as Temp)
+WHERE ENAME = 'ADAMS';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Change department of employee FORD to 30.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET DEPTNO = 30
+WHERE ENAME = 'FORD';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Set commission same as MILLER for employees in department 20.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET COMM = (SELECT COMM FROM (SELECT COMM FROM EMP WHERE ENAME = 'MILLER') as Temp)
+WHERE DEPTNO = 20;
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

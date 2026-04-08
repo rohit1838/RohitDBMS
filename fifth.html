@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Selection Queries</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .table-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+            font-family: monospace;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>SQL Selection Queries</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose salary is greater than 3000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL > 3000;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees working in department 10.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE DEPTNO = 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose job is 'CLERK'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE JOB = 'CLERK';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees hired after 01-JAN-81.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE HIREDATE > '1981-01-01';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose salary is less than 1500.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL < 1500;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose salary is > 2000 and job is 'MANAGER'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL > 2000 AND JOB = 'MANAGER';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees working in department 10 or 20.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE DEPTNO IN (10, 20);
+-- OR --
+SELECT * FROM EMP 
+WHERE DEPTNO = 10 OR DEPTNO = 20;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose job is 'SALESMAN' and salary > 1500.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE JOB = 'SALESMAN' AND SAL > 1500;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees who are either CLERK or ANALYST.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE JOB IN ('CLERK', 'ANALYST');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees hired before 1982 and working in department 30.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE HIREDATE < '1982-01-01' AND DEPTNO = 30;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees working in departments 10, 20, or 30.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE DEPTNO IN (10, 20, 30);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose job is not MANAGER or CLERK.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE JOB NOT IN ('MANAGER', 'CLERK');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose department is not 10.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE DEPTNO != 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose salary is between 1000 and 3000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL BETWEEN 1000 AND 3000;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees hired between 01-JAN-81 and 31-DEC-81.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE HIREDATE BETWEEN '1981-01-01' AND '1981-12-31';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display all employees ordered by salary in ascending order.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+ORDER BY SAL ASC;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display all employees ordered by salary in descending order.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+ORDER BY SAL DESC;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees ordered by hire date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+ORDER BY HIREDATE;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees ordered by department number and salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+ORDER BY DEPTNO, SAL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees ordered by job (ascending) and salary (descending).</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+ORDER BY JOB ASC, SAL DESC;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee names ordered alphabetically.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME 
+FROM EMP 
+ORDER BY ENAME ASC;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees of department 30 ordered by salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE DEPTNO = 30 
+ORDER BY SAL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees ordered by annual salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT *, (SAL * 12) AS Annual_Salary 
+FROM EMP 
+ORDER BY Annual_Salary;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees ordered by commission.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+ORDER BY COMM;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">25</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees ordered by job and name.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+ORDER BY JOB, ENAME;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">26</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee name as Employee_Name.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME AS Employee_Name 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">27</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display salary as Monthly_Salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT SAL AS Monthly_Salary 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">28</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee name and job with aliases.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME AS "Employee Name", JOB AS "Designation" 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">29</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display department number as Dept_No.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT DEPTNO AS Dept_No 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">30</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee name and salary with meaningful aliases.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME AS "Staff Name", SAL AS "Salary Amount" 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">31</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display commission as Incentive.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT COMM AS Incentive 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">32</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee name, job, and salary with aliases, ordered by job.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME AS Name, JOB AS Designation, SAL AS Salary 
+FROM EMP 
+ORDER BY JOB;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">33</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees of department 30 whose salary > 1500, ordered by salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE DEPTNO = 30 AND SAL > 1500 
+ORDER BY SAL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">34</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose commission is NOT NULL, ordered by commission.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NOT NULL 
+ORDER BY COMM;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">35</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose salary is between 1500 and 3000, ordered by salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL BETWEEN 1500 AND 3000 
+ORDER BY SAL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">36</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee name and department, ordered by department and name.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, DEPTNO 
+FROM EMP 
+ORDER BY DEPTNO, ENAME;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">37</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose name starts with 'S', ordered by salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE ENAME LIKE 'S%' 
+ORDER BY SAL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">38</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees hired before 1982 with aliases, ordered by hire date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME AS Name, HIREDATE AS "Date of Joining" 
+FROM EMP 
+WHERE HIREDATE < '1982-01-01' 
+ORDER BY HIREDATE;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">39</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee name as Name and salary as Pay for department 10.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME AS Name, SAL AS Pay 
+FROM EMP 
+WHERE DEPTNO = 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">40</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose commission is NULL, ordered by salary descending.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NULL 
+ORDER BY SAL DESC;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">41</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee name and annual salary, ordered by annual salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME, (SAL * 12) AS Annual_Salary 
+FROM EMP 
+ORDER BY Annual_Salary;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">42</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose commission is NULL but job is SALESMAN.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NULL AND JOB = 'SALESMAN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">43</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose manager is NULL and salary > 4000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE MGR IS NULL AND SAL > 4000;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">44</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees who do not earn commission and work in department 20.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE (COMM IS NULL OR COMM = 0) AND DEPTNO = 20;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">45</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose commission is NOT NULL and department is 30.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NOT NULL AND DEPTNO = 30;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">46</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose commission is NULL or salary > 3000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NULL OR SAL > 3000;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">47</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose commission is NULL and salary > 2000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NULL AND SAL > 2000;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">48</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose manager is not NULL.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE MGR IS NOT NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">49</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees who do not have a manager.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE MGR IS NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">50</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees who are getting commission.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NOT NULL AND COMM > 0;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">51</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employees whose commission is NULL.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE COMM IS NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">52</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display job and salary using aliases.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT JOB AS Designation, SAL AS Remuneration 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">53</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display employee name and department number with aliases.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME AS "Employee Name", DEPTNO AS "Department ID" 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">54</span>
+        <span class="table-info">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <span class="q-text">Display hire date as Joining_Date.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT HIREDATE AS Joining_Date 
+FROM EMP;
+            </div>
+        </details>
+    </div>
+</body>
+</html>

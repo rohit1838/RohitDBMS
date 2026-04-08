@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL DML Commands Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .schema-note {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0 0 40px;
+            font-style: italic;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        code {
+            color: #d19a66; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>SET OPERATORS</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Insert a record into the STUDENT table with SID=101, SNAME='RAHUL', AGE=20, and COURSE='MCA'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO STUDENT (SID, SNAME, AGE, COURSE) 
+VALUES (101, 'RAHUL', 20, 'MCA');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Insert a record into the EMPLOYEE table with EID=201, ENAME='ANITA', SALARY=45000, and DEPTNO=10.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMPLOYEE (EID, ENAME, SALARY, DEPTNO) 
+VALUES (201, 'ANITA', 45000, 10);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Insert a new department into the DEPT table with DEPTNO=50, DNAME='TRAINING', and LOC='DELHI'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO DEPT (DEPTNO, DNAME, LOC) 
+VALUES (50, 'TRAINING', 'DELHI');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Insert a record into the BOOK table with only BOOK_ID, TITLE, and PRICE. (Other columns are NULL)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO BOOK (BOOK_ID, TITLE, PRICE) 
+VALUES (1001, 'Database Systems', 550);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Insert multiple rows into the COURSE table in a single query.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT ALL 
+  INTO COURSE VALUES (1, 'Oracle', 5000)
+  INTO COURSE VALUES (2, 'Java', 4000)
+  INTO COURSE VALUES (3, 'Python', 4500)
+SELECT * FROM DUAL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Update the salary of employee 'SMITH' to 2000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SAL = 2000 
+WHERE ENAME = 'SMITH';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Increase the salary of all employees by 10%.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SAL = SAL + (SAL * 0.10);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Update the department number of employee 'ALLEN' to 20.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET DEPTNO = 20 
+WHERE ENAME = 'ALLEN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Update the commission of all 'SALESMAN' to 500.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET COMM = 500 
+WHERE JOB = 'SALESMAN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Delete the record of employee 'SMITH' from the EMP table.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE ENAME = 'SMITH';
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Display employee names from department 10 and department 20 using UNION.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME FROM EMP WHERE DEPTNO = 10
+UNION
+SELECT ENAME FROM EMP WHERE DEPTNO = 20;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Display employee names from department 10 and department 20 including duplicates.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME FROM EMP WHERE DEPTNO = 10
+UNION ALL
+SELECT ENAME FROM EMP WHERE DEPTNO = 20;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Display employees who work in departments that exist in DEPT table using INTERSECT.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT DEPTNO FROM EMP
+INTERSECT
+SELECT DEPTNO FROM DEPT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Display employees whose department does not exist in DEPT table using MINUS.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT DEPTNO FROM EMP
+MINUS
+SELECT DEPTNO FROM DEPT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Display department numbers that have employees and also exist in DEPT table.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT DEPTNO FROM EMP
+INTERSECT
+SELECT DEPTNO FROM DEPT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Display all unique job roles from EMP and all unique department names from DEPT in one result.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT JOB FROM EMP
+UNION
+SELECT DNAME FROM DEPT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Display common values between employee job and department location.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT JOB FROM EMP
+INTERSECT
+SELECT LOC FROM DEPT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Display employee names who are not assigned to any valid department.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME FROM EMP 
+WHERE DEPTNO NOT IN (SELECT DEPTNO FROM DEPT);
+
+-- OR using MINUS logic:
+SELECT DEPTNO FROM EMP
+MINUS
+SELECT DEPTNO FROM DEPT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Combine: <br>&nbsp;&nbsp;* Employees earning more than 2000 <br>&nbsp;&nbsp;* Employees from department 10 <br>using UNION.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME FROM EMP WHERE SAL > 2000
+UNION
+SELECT ENAME FROM EMP WHERE DEPTNO = 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Display employees who: <br>&nbsp;&nbsp;* Work in department 10 <br>&nbsp;&nbsp;but <br>&nbsp;&nbsp;* Not in department 20 using MINUS.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME FROM EMP WHERE DEPTNO = 10
+MINUS
+SELECT ENAME FROM EMP WHERE DEPTNO = 20;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Display department numbers that: <br>&nbsp;&nbsp;* Exist in EMP <br>&nbsp;&nbsp;* Exist in DEPT <br>&nbsp;&nbsp;* But exclude department 10</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+(SELECT DEPTNO FROM EMP 
+ INTERSECT 
+ SELECT DEPTNO FROM DEPT)
+MINUS
+SELECT DEPTNO FROM DEPT WHERE DEPTNO = 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Display all employee names and department names in a single result sorted alphabetically.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME FROM EMP
+UNION
+SELECT DNAME FROM DEPT
+ORDER BY 1;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Display department numbers that appear in EMP more than once using UNION ALL.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT DEPTNO FROM EMP
+GROUP BY DEPTNO
+HAVING COUNT(*) > 1;
+
+/* Note: To strictly use UNION ALL for finding duplicates: */
+SELECT DEPTNO FROM EMP
+INTERSECT
+SELECT DEPTNO FROM EMP; 
+/* (Logic depends on specific RDBMS requirements for "using UNION ALL") */
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Display employees from departments located in NEW YORK and DALLAS using UNION.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT E.ENAME FROM EMP E, DEPT D 
+WHERE E.DEPTNO = D.DEPTNO AND D.LOC = 'NEW YORK'
+UNION
+SELECT E.ENAME FROM EMP E, DEPT D 
+WHERE E.DEPTNO = D.DEPTNO AND D.LOC = 'DALLAS';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">25</span>
+        <span class="q-text">Combine results of: <br>&nbsp;&nbsp;* Employees with salary > 3000 <br>&nbsp;&nbsp;* Employees with job = 'MANAGER' <br>Remove duplicates.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)<br>DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT ENAME FROM EMP WHERE SAL > 3000
+UNION
+SELECT ENAME FROM EMP WHERE JOB = 'MANAGER';
+            </div>
+        </details>
+    </div>
+    
+</body>
+</html>

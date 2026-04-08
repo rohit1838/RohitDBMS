@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Selection Queries - Wildcards</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-yellow: #ffc107;
+            --text-main: #333;
+            --text-muted: #666;
+            --border-color: #eee;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px;
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-yellow);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 { font-size: 2.5rem; margin: 0; font-weight: 800; }
+
+        .back-btn {
+            background: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .q-number {
+            background: var(--primary-yellow);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .table-schema {
+            color: var(--text-muted);
+            font-family: monospace;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin: 15px 0;
+        }
+
+        .answer-section {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .dropdown-trigger {
+            width: 100%;
+            padding: 15px 20px;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-trigger::before {
+            content: '▶';
+            font-size: 0.7rem;
+            margin-right: 10px;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-trigger.active::before { transform: rotate(90deg); }
+
+        .answer-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 20px;
+        }
+
+        .answer-content.show {
+            max-height: 200px;
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        code {
+            background: #131212;
+            padding: 12px;
+            display: block;
+            border-radius: 4px;
+            color: #b3afb1;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>SQL Selection Queries</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </header>
+
+    <div class="card">
+        <div class="q-number">1</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with A.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'A%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">2</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with S.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'S%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">3</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name ends with N.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%N';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">4</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name ends with R.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%R';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">5</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains LL.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%LL%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">6</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains AR.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%AR%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">7</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job starts with M.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE 'M%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">8</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job ends with AN.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE '%AN';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">9</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job contains CL.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE '%CL%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">10</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display departments whose location starts with N.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM DEPT WHERE LOC LIKE 'N%';</code>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="q-number">11</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has exactly 4 characters.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '____';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">12</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has exactly 5 characters.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '_____';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">13</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has A as the second character.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '_A%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">14</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has L as the third character.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '__L%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">15</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job has exactly 6 characters.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE '______';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">16</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with any letter but ends with N.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '_%N';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">17</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job starts with any one character and ends with ER.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE '_%ER';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">18</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has A as the first and N as the last character.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'A%N';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">19</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has exactly 2 characters before 'E'.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '__E%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">20</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has exactly 1 character after 'A'.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%A_';</code>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="q-number">21</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with A and ends with N.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'A%N';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">22</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains E anywhere.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%E%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">23</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name does not contain A.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME NOT LIKE '%A%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">24</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job contains MAN.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE '%MAN%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">25</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job does not start with C.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB NOT LIKE 'C%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">26</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains two L consecutively.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%LL%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">27</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with J and has S anywhere.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'J%S%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">28</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job starts with S and ends with AN.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE 'S%AN';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">29</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains A as the second last character.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%A_';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">30</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains exactly one character between A and E.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%A_E%';</code>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="q-number">31</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with S and salary > 2000.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'S%' AND SAL > 2000;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">32</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job ends with MAN and department is 20.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE '%MAN' AND DEPTNO = 20;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">33</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains A and commission is NULL.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%A%' AND COMM IS NULL;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">34</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job starts with C and salary < 1500.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE 'C%' AND SAL < 1500;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">35</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name ends with S and hired after 1981.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%S' AND HIREDATE > '31-DEC-1981';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">36</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with M and department is not 10.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'M%' AND DEPTNO != 10;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">37</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job contains ER and salary between 2000 and 3000.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE '%ER%' AND SAL BETWEEN 2000 AND 3000;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">38</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with A or job starts with S.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'A%' OR JOB LIKE 'S%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">39</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains I and manager is NOT NULL.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%I%' AND MGR IS NOT NULL;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">40</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name ends with N and commission is NOT NULL.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%N' AND COMM IS NOT NULL;</code>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="q-number">41</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employee name as Name whose name starts with S, ordered alphabetically.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT ENAME AS "Name" FROM EMP WHERE ENAME LIKE 'S%' ORDER BY ENAME;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">42</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employee name and salary as Pay whose name contains A, ordered by salary.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT ENAME, SAL AS "Pay" FROM EMP WHERE ENAME LIKE '%A%' ORDER BY SAL;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">43</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job starts with M, ordered by job and salary.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE 'M%' ORDER BY JOB, SAL;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">44</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name ends with E, ordered by hire date.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%E' ORDER BY HIREDATE;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">45</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employee name and annual salary for employees whose name starts with J.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT ENAME, SAL * 12 AS "Annual Salary" FROM EMP WHERE ENAME LIKE 'J%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">46</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains R, ordered by department number.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%R%' ORDER BY DEPTNO;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">47</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employee name as Employee whose job ends with AN.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT ENAME AS "Employee" FROM EMP WHERE JOB LIKE '%AN';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">48</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts with K, ordered by salary descending.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE 'K%' ORDER BY SAL DESC;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">49</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains L, ordered by name and salary.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%L%' ORDER BY ENAME, SAL;</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">50</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job starts with C, ordered by job.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE 'C%' ORDER BY JOB;</code>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="q-number">51</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has exactly 6 characters and ends with R.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '_____R';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">52</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has A as the third character from start.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '__A%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">53</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name has E as the second character from end.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%E_';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">54</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains at least two characters before 'A'.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '__%A%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">55</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job contains exactly one 'A'.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB LIKE '%A%' AND JOB NOT LIKE '%A%A%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">56</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name does not start with a vowel.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME NOT LIKE 'A%' AND ENAME NOT LIKE 'E%' AND ENAME NOT LIKE 'I%' AND ENAME NOT LIKE 'O%' AND ENAME NOT LIKE 'U%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">57</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose job does not contain ER.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE JOB NOT LIKE '%ER%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">58</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name starts and ends with the same character.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE SUBSTR(ENAME, 1, 1) = SUBSTR(ENAME, -1, 1);</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">59</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains A and E in any order.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '%A%' AND ENAME LIKE '%E%';</code>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-number">60</div>
+        <div class="table-schema">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</div>
+        <div class="table-schema">DEPT (DEPTNO, DNAME, LOC)</div>
+        <div class="question-text">Display employees whose name contains A but not as the first character.</div>
+        <div class="answer-section">
+            <button class="dropdown-trigger" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-content">
+                <code>SELECT * FROM EMP WHERE ENAME LIKE '_%A%';</code>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleAnswer(btn) {
+        btn.classList.toggle('active');
+        const content = btn.nextElementSibling;
+        if (content.classList.contains('show')) {
+            content.classList.remove('show');
+            btn.innerText = "Show Answer";
+        } else {
+            content.classList.add('show');
+            btn.innerText = "Hide Answer";
+        }
+    }
+</script>
+
+</body>
+</html>

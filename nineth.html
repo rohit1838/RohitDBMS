@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Subqueries Study Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .schema-note {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0 0 40px;
+            font-style: italic;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        .theory-text {
+            color: #d19a66;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>SQL SUBQUERIES</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">What is a subquery in SQL?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+A subquery is a <span class="theory-text">query within another query</span>. 
+The outer query is called the main query, and the inner query is the subquery. 
+The subquery executes first and its result is used by the main query.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">What are the different types of subqueries?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+1. <span class="theory-text">Single-row subquery</span>: Returns only one row.
+2. <span class="theory-text">Multi-row subquery</span>: Returns multiple rows.
+3. <span class="theory-text">Multiple column subquery</span>: Returns multiple columns.
+4. <span class="theory-text">Correlated subquery</span>: Reference columns from the outer query.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">What is the difference between a subquery and a join?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+- <span class="theory-text">Subquery</span>: Used to return data that will be used in the main query as a condition. Usually easier to read.
+- <span class="theory-text">Join</span>: Used to combine rows from two or more tables based on a related column. Joins are generally faster in performance for large datasets.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">What is a single-row subquery?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+A subquery that returns <span class="theory-text">exactly one row</span> of results. 
+It uses single-row operators like =, >, <, >=, <=, or <>.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">What is a multi-row subquery?</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+A subquery that returns <span class="theory-text">one or more rows</span>. 
+It uses multi-row operators like IN, ANY, or ALL.
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Display employees whose salary is greater than the average salary.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL > (SELECT AVG(SAL) FROM EMP);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Display employees who earn more than employee 'SMITH'.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL > (SELECT SAL FROM EMP WHERE ENAME = 'SMITH');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Display employees working in the same department as 'SCOTT'.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE ENAME = 'SCOTT');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Display employees whose salary is equal to the minimum salary.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL = (SELECT MIN(SAL) FROM EMP);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Display employees whose salary is greater than department 10 average salary.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL > (SELECT AVG(SAL) FROM EMP WHERE DEPTNO = 10);
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Display employees whose salary is in salaries of department 10.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL IN (SELECT SAL FROM EMP WHERE DEPTNO = 10);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Display employees whose job is same as any employee in department 20.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE JOB IN (SELECT DISTINCT JOB FROM EMP WHERE DEPTNO = 20);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Display employees whose salary is greater than ALL employees in department 30.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL > ALL (SELECT SAL FROM EMP WHERE DEPTNO = 30);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Display employees whose salary is greater than company average but less than department average.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP e 
+WHERE SAL > (SELECT AVG(SAL) FROM EMP)
+AND SAL < (SELECT AVG(SAL) FROM EMP WHERE DEPTNO = e.DEPTNO);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Display employees earning top 3 salaries in each department.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP e1 
+WHERE 3 > (SELECT COUNT(DISTINCT SAL) FROM EMP e2 
+           WHERE e2.DEPTNO = e1.DEPTNO AND e2.SAL > e1.SAL);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Display nth highest salary using subquery.</span>
+        <span class="schema-note">Generic Formula</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT DISTINCT SAL FROM EMP e1 
+WHERE (N-1) = (SELECT COUNT(DISTINCT SAL) FROM EMP e2 WHERE e2.SAL > e1.SAL);
+
+-- Note: Replace 'N' with the desired number (e.g., 5 for 5th highest).
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Display second highest salary using subquery.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT MAX(SAL) FROM EMP 
+WHERE SAL < (SELECT MAX(SAL) FROM EMP);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Display employees who are not assigned to any department.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE DEPTNO IS NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Display departments that do not have employees.</span>
+        <span class="schema-note">DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM DEPT 
+WHERE DEPTNO NOT IN (SELECT DISTINCT DEPTNO FROM EMP WHERE DEPTNO IS NOT NULL);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Display departments that have employees.</span>
+        <span class="schema-note">DEPT (DEPTNO, DNAME, LOC)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM DEPT 
+WHERE DEPTNO IN (SELECT DISTINCT DEPTNO FROM EMP);
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Display employees whose salary is above average of their job role.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP e1 
+WHERE SAL > (SELECT AVG(SAL) FROM EMP e2 WHERE e2.JOB = e1.JOB);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Display employees who earn more than their manager.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP e 
+WHERE SAL > (SELECT SAL FROM EMP m WHERE m.EMPNO = e.MGR);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Display highest paid employee in each department.</span>
+        <span class="schema-note">EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE (DEPTNO, SAL) IN (SELECT DEPTNO, MAX(SAL) FROM EMP GROUP BY DEPTNO);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Display employees whose salary is less than ANY employee in department 10.</span>
+        <span class="schema-note">Part 1</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP 
+WHERE SAL < ANY (SELECT SAL FROM EMP WHERE DEPTNO = 10);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24b</span>
+        <span class="q-text">Display employees who earn more than their department average salary.</span>
+        <span class="schema-note">Part 2 (Correlated Subquery)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+SELECT * FROM EMP e1 
+WHERE SAL > (SELECT AVG(SAL) FROM EMP e2 WHERE e2.DEPTNO = e1.DEPTNO);
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

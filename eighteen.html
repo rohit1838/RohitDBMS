@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PL/SQL Composite Datatypes Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .schema-note {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0 0 40px;
+            font-style: italic;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        code {
+            color: #d19a66; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>COMPOSITE DATATYPES</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Write a PL/SQL block to declare a simple user-defined record to store ID and Name.</span>
+        <span class="schema-note">(PL/SQL Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE emp_rectype IS RECORD (
+    id   NUMBER,
+    name VARCHAR2(20)
+  );
+  v_emp emp_rectype;
+BEGIN
+  v_emp.id := 101;
+  v_emp.name := 'RAHUL';
+  DBMS_OUTPUT.PUT_LINE('ID: ' || v_emp.id || ' Name: ' || v_emp.name);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Write a PL/SQL block to store employee details using a record.</span>
+        <span class="schema-note">(PL/SQL Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE emp_detail_type IS RECORD (
+    ename emp.ename%TYPE,
+    job   emp.job%TYPE,
+    sal   emp.sal%TYPE
+  );
+  v_emp emp_detail_type;
+BEGIN
+  SELECT ename, job, sal INTO v_emp 
+  FROM emp WHERE empno = 7839;
+  
+  DBMS_OUTPUT.PUT_LINE('Name: ' || v_emp.ename || ' Job: ' || v_emp.job);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Write a PL/SQL block to declare a record for department details and initialize it.</span>
+        <span class="schema-note">(PL/SQL Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE dept_rectype IS RECORD (
+    deptno NUMBER := 10,
+    dname  VARCHAR2(20) := 'ACCOUNTING',
+    loc    VARCHAR2(20) := 'NEW YORK'
+  );
+  v_dept dept_rectype;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Dept: ' || v_dept.dname || ' at ' || v_dept.loc);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Write a PL/SQL block to nested record (Record inside another record).</span>
+        <span class="schema-note">(Nested Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE name_type IS RECORD (
+    fname VARCHAR2(20),
+    lname VARCHAR2(20)
+  );
+  TYPE emp_type IS RECORD (
+    id       NUMBER,
+    full_name name_type
+  );
+  v_emp emp_type;
+BEGIN
+  v_emp.id := 1;
+  v_emp.full_name.fname := 'John';
+  v_emp.full_name.lname := 'Doe';
+  DBMS_OUTPUT.PUT_LINE('Emp: ' || v_emp.full_name.fname || ' ' || v_emp.full_name.lname);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Write a PL/SQL block to update a record variable and display it.</span>
+        <span class="schema-note">(PL/SQL Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE info_type IS RECORD (val NUMBER);
+  v_info info_type;
+BEGIN
+  v_info.val := 100;
+  v_info.val := v_info.val + 50;
+  DBMS_OUTPUT.PUT_LINE('Updated Value: ' || v_info.val);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Write a PL/SQL block to declare an Associative Array (Index-by table) to store strings.</span>
+        <span class="schema-note">(Associative Array)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE city_table IS TABLE OF VARCHAR2(20) INDEX BY BINARY_INTEGER;
+  v_cities city_table;
+BEGIN
+  v_cities(1) := 'Mumbai';
+  v_cities(2) := 'Delhi';
+  DBMS_OUTPUT.PUT_LINE('City 1: ' || v_cities(1));
+  DBMS_OUTPUT.PUT_LINE('City 2: ' || v_cities(2));
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Write a PL/SQL block to use strings as index in an Associative Array.</span>
+        <span class="schema-note">(Associative Array)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE capital_table IS TABLE OF VARCHAR2(20) INDEX BY VARCHAR2(20);
+  v_capitals capital_table;
+BEGIN
+  v_capitals('India') := 'New Delhi';
+  v_capitals('France') := 'Paris';
+  DBMS_OUTPUT.PUT_LINE('Capital of India: ' || v_capitals('India'));
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Write a PL/SQL block to store salaries of employees in an Associative Array.</span>
+        <span class="schema-note">(Associative Array)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE sal_type IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;
+  v_salaries sal_type;
+BEGIN
+  v_salaries(7369) := 800;
+  v_salaries(7902) := 3000;
+  DBMS_OUTPUT.PUT_LINE('Salary of 7902: ' || v_salaries(7902));
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Write a PL/SQL block to iterate through an Associative Array using a loop.</span>
+        <span class="schema-note">(Associative Array)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE num_table IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;
+  v_nums num_table;
+BEGIN
+  v_nums(10) := 100;
+  v_nums(20) := 200;
+  v_nums(30) := 300;
+  
+  FOR i IN v_nums.FIRST .. v_nums.LAST LOOP
+    IF v_nums.EXISTS(i) THEN
+      DBMS_OUTPUT.PUT_LINE('Index ' || i || ' Value ' || v_nums(i));
+    END IF;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Write a PL/SQL block to use collection methods (FIRST, LAST, COUNT, EXISTS).</span>
+        <span class="schema-note">(Collection Methods)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE my_coll IS TABLE OF VARCHAR2(10) INDEX BY BINARY_INTEGER;
+  v_data my_coll;
+BEGIN
+  v_data(1) := 'A';
+  v_data(5) := 'E';
+  
+  DBMS_OUTPUT.PUT_LINE('Count: ' || v_data.COUNT);
+  DBMS_OUTPUT.PUT_LINE('First Index: ' || v_data.FIRST);
+  DBMS_OUTPUT.PUT_LINE('Last Index: ' || v_data.LAST);
+  
+  IF v_data.EXISTS(5) THEN
+    DBMS_OUTPUT.PUT_LINE('Index 5 exists');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Write a PL/SQL block to declare a VARRAY to store 5 integer values.</span>
+        <span class="schema-note">(Collection - VARRAY)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE int_varray IS VARRAY(5) OF NUMBER;
+  v_nums int_varray := int_varray(10, 20, 30, 40, 50);
+BEGIN
+  FOR i IN 1..v_nums.COUNT LOOP
+    DBMS_OUTPUT.PUT_LINE('Value ' || i || ': ' || v_nums(i));
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Write a PL/SQL block to declare a Nested Table to store employee names.</span>
+        <span class="schema-note">(Collection - Nested Table)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE name_nested IS TABLE OF VARCHAR2(20);
+  v_names name_nested := name_nested('SMITH', 'ALLEN', 'WARD');
+BEGIN
+  v_names.EXTEND; -- Add space for one more
+  v_names(4) := 'JONES';
+  
+  FOR i IN 1..v_names.COUNT LOOP
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_names(i));
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Write a PL/SQL block to initialize a VARRAY and display its limit.</span>
+        <span class="schema-note">(Collection - VARRAY)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE my_varray IS VARRAY(10) OF VARCHAR2(10);
+  v_list my_varray := my_varray('A', 'B');
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Current Count: ' || v_list.COUNT);
+  DBMS_OUTPUT.PUT_LINE('Max Limit: ' || v_list.LIMIT);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Write a PL/SQL block to delete an element from a Nested Table.</span>
+        <span class="schema-note">(Collection - Nested Table)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE num_nested IS TABLE OF NUMBER;
+  v_nums num_nested := num_nested(10, 20, 30, 40);
+BEGIN
+  v_nums.DELETE(2); -- Deletes element at index 2 (20)
+  
+  IF v_nums.EXISTS(2) THEN
+     DBMS_OUTPUT.PUT_LINE('Index 2 exists');
+  ELSE
+     DBMS_OUTPUT.PUT_LINE('Index 2 was deleted');
+  END IF;
+  DBMS_OUTPUT.PUT_LINE('Total remaining: ' || v_nums.COUNT);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Write a PL/SQL block to compare two records of the same type.</span>
+        <span class="schema-note">(PL/SQL Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE item_rectype IS RECORD (id NUMBER, name VARCHAR2(10));
+  r1 item_rectype;
+  r2 item_rectype;
+BEGIN
+  r1.id := 1; r1.name := 'Apple';
+  r2.id := 1; r2.name := 'Apple';
+
+  -- Records cannot be compared directly with '=' in all versions.
+  -- Check individual fields:
+  IF r1.id = r2.id AND r1.name = r2.name THEN
+    DBMS_OUTPUT.PUT_LINE('Records match');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Write a PL/SQL block to store a whole row from DEPT table into a record using %ROWTYPE.</span>
+        <span class="schema-note">(Datatypes - %ROWTYPE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_dept_rec DEPT%ROWTYPE;
+BEGIN
+  SELECT * INTO v_dept_rec FROM DEPT WHERE DEPTNO = 10;
+  DBMS_OUTPUT.PUT_LINE('Dept: ' || v_dept_rec.DNAME || ' | Loc: ' || v_dept_rec.LOC);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Write a PL/SQL block to use EXTEND method in a Nested Table.</span>
+        <span class="schema-note">(Collection Methods)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE task_list IS TABLE OF VARCHAR2(20);
+  v_tasks task_list := task_list('Code');
+BEGIN
+  v_tasks.EXTEND; -- Adds one null element
+  v_tasks(2) := 'Test';
+  
+  v_tasks.EXTEND(2); -- Adds two more null elements
+  v_tasks(3) := 'Deploy';
+  v_tasks(4) := 'Debug';
+
+  DBMS_OUTPUT.PUT_LINE('Count after extend: ' || v_tasks.COUNT);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Write a PL/SQL block to store employee salary and commission in a record and handle nulls.</span>
+        <span class="schema-note">(PL/SQL Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE pay_rectype IS RECORD (sal NUMBER, comm NUMBER);
+  v_pay pay_rectype;
+BEGIN
+  SELECT SAL, COMM INTO v_pay FROM EMP WHERE EMPNO = 7369;
+  DBMS_OUTPUT.PUT_LINE('Sal: ' || v_pay.sal);
+  DBMS_OUTPUT.PUT_LINE('Comm: ' || NVL(v_pay.comm, 0));
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Write a PL/SQL block to find the sum of all values in a VARRAY.</span>
+        <span class="schema-note">(Collection Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE num_va IS VARRAY(5) OF NUMBER;
+  v_list num_va := num_va(5, 10, 15, 20, 25);
+  v_total NUMBER := 0;
+BEGIN
+  FOR i IN 1..v_list.COUNT LOOP
+    v_total := v_total + v_list(i);
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Sum of Varray: ' || v_total);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Write a PL/SQL block to fetch multiple employee names from a specific department into an Associative Array.</span>
+        <span class="schema-note">(Collection + Cursor Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE name_table IS TABLE OF VARCHAR2(20) INDEX BY BINARY_INTEGER;
+  v_names name_table;
+  v_idx NUMBER := 1;
+BEGIN
+  FOR r IN (SELECT ENAME FROM EMP WHERE DEPTNO = 20) LOOP
+    v_names(v_idx) := r.ENAME;
+    DBMS_OUTPUT.PUT_LINE('Stored: ' || v_names(v_idx));
+    v_idx := v_idx + 1;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Write a PL/SQL block to use PRIOR and NEXT methods in a collection.</span>
+        <span class="schema-note">(Collection Methods)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE num_table IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;
+  v_nums num_table;
+  v_idx  NUMBER;
+BEGIN
+  v_nums(10) := 100;
+  v_nums(20) := 200;
+  v_nums(30) := 300;
+
+  DBMS_OUTPUT.PUT_LINE('Next after 10: ' || v_nums.NEXT(10));
+  DBMS_OUTPUT.PUT_LINE('Prior before 30: ' || v_nums.PRIOR(30));
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Write a PL/SQL block to use TRIM method in a VARRAY.</span>
+        <span class="schema-note">(Collection Methods)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE my_va IS VARRAY(5) OF VARCHAR2(10);
+  v_list my_va := my_va('A', 'B', 'C', 'D');
+BEGIN
+  v_list.TRIM(1); -- Removes the last element ('D')
+  DBMS_OUTPUT.PUT_LINE('Count after TRIM(1): ' || v_list.COUNT);
+  
+  v_list.TRIM;    -- Removes one more ('C')
+  DBMS_OUTPUT.PUT_LINE('Count after TRIM: ' || v_list.COUNT);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Write a PL/SQL block to declare a record and assign it to another record of same type.</span>
+        <span class="schema-note">(PL/SQL Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE rec_type IS RECORD (id NUMBER, val VARCHAR2(10));
+  r1 rec_type;
+  r2 rec_type;
+BEGIN
+  r1.id := 1; r1.val := 'Test';
+  
+  r2 := r1; -- Direct assignment of whole record
+  
+  DBMS_OUTPUT.PUT_LINE('Record 2 ID: ' || r2.id || ' Val: ' || r2.val);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Write a PL/SQL block to use EXISTS method to check index in an Associative Array.</span>
+        <span class="schema-note">(Collection Methods)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE map_type IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;
+  v_map map_type;
+BEGIN
+  v_map(1) := 100;
+  
+  IF v_map.EXISTS(1) THEN
+    DBMS_OUTPUT.PUT_LINE('Index 1 exists with value: ' || v_map(1));
+  END IF;
+  
+  IF NOT v_map.EXISTS(2) THEN
+    DBMS_OUTPUT.PUT_LINE('Index 2 does not exist');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">25</span>
+        <span class="q-text">Write a PL/SQL block to initialize a record using a constructor-like approach (manual assignment).</span>
+        <span class="schema-note">(PL/SQL Record)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE student_rec IS RECORD (name VARCHAR2(20), roll NUMBER);
+  v_std student_rec;
+BEGIN
+  -- Manual initialization
+  v_std.name := 'ROHIT';
+  v_std.roll := 101;
+  
+  DBMS_OUTPUT.PUT_LINE('Student: ' || v_std.name || ' Roll: ' || v_std.roll);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">26</span>
+        <span class="q-text">Write a PL/SQL block to store employee records from a cursor into a Nested Table.</span>
+        <span class="schema-note">(Collection + Cursor)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE emp_tab IS TABLE OF EMP%ROWTYPE;
+  v_emps emp_tab := emp_tab();
+BEGIN
+  FOR r IN (SELECT * FROM EMP WHERE DEPTNO = 30) LOOP
+    v_emps.EXTEND;
+    v_emps(v_emps.LAST) := r;
+  END LOOP;
+  
+  DBMS_OUTPUT.PUT_LINE('Stored ' || v_emps.COUNT || ' employees from Dept 30');
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">27</span>
+        <span class="q-text">Write a PL/SQL block to iterate through a VARRAY using FIRST and LAST.</span>
+        <span class="schema-note">(Collection Methods)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE color_va IS VARRAY(3) OF VARCHAR2(10);
+  v_colors color_va := color_va('Red', 'Green', 'Blue');
+BEGIN
+  FOR i IN v_colors.FIRST .. v_colors.LAST LOOP
+    DBMS_OUTPUT.PUT_LINE('Color ' || i || ': ' || v_colors(i));
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">28</span>
+        <span class="q-text">Write a PL/SQL block to clear all elements from an Associative Array.</span>
+        <span class="schema-note">(Collection Methods - DELETE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE data_table IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;
+  v_data data_table;
+BEGIN
+  v_data(1) := 10; v_data(2) := 20;
+  v_data.DELETE; -- Removes all elements
+  
+  DBMS_OUTPUT.PUT_LINE('Count after delete all: ' || v_data.COUNT);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">29</span>
+        <span class="q-text">Write a PL/SQL block to find the average salary from an Associative Array of salaries.</span>
+        <span class="schema-note">(Collection Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE sal_list IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;
+  v_sals sal_list;
+  v_total NUMBER := 0;
+BEGIN
+  v_sals(1) := 1000; v_sals(2) := 2000; v_sals(3) := 3000;
+  
+  FOR i IN 1..v_sals.COUNT LOOP
+    v_total := v_total + v_sals(i);
+  END LOOP;
+  
+  DBMS_OUTPUT.PUT_LINE('Average Salary: ' || (v_total / v_sals.COUNT));
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">30</span>
+        <span class="q-text">Write a PL/SQL block to demonstrate %TYPE usage in a user-defined record.</span>
+        <span class="schema-note">(PL/SQL Record + %TYPE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE emp_short_rec IS RECORD (
+    name  EMP.ENAME%TYPE,
+    salary EMP.SAL%TYPE
+  );
+  v_info emp_short_rec;
+BEGIN
+  SELECT ENAME, SAL INTO v_info FROM EMP WHERE EMPNO = 7788;
+  DBMS_OUTPUT.PUT_LINE('Emp: ' || v_info.name || ' earns ' || v_info.salary);
+END;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">31</span>
+        <span class="q-text">Write a PL/SQL block to use %ROWTYPE inside a user-defined record.</span>
+        <span class="schema-note">(PL/SQL Record + %ROWTYPE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE complex_rectype IS RECORD (
+    emp_data EMP%ROWTYPE,
+    dept_name VARCHAR2(20)
+  );
+  v_info complex_rectype;
+BEGIN
+  -- Fetch table row into the nested record field
+  SELECT * INTO v_info.emp_data FROM EMP WHERE EMPNO = 7788;
+  v_info.dept_name := 'RESEARCH';
+
+  DBMS_OUTPUT.PUT_LINE('Employee: ' || v_info.emp_data.ENAME);
+  DBMS_OUTPUT.PUT_LINE('Department: ' || v_info.dept_name);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">32</span>
+        <span class="q-text">Write a PL/SQL block to check the LIMIT of a Nested Table and VARRAY.</span>
+        <span class="schema-note">(Collection Methods - LIMIT)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  TYPE nt_type IS TABLE OF NUMBER;
+  TYPE va_type IS VARRAY(10) OF NUMBER;
+  
+  v_nt nt_type := nt_type(1,2,3);
+  v_va va_type := va_type(1,2,3);
+BEGIN
+  -- Nested Tables have no limit (returns NULL)
+  DBMS_OUTPUT.PUT_LINE('Nested Table Limit: ' || NVL(TO_CHAR(v_nt.LIMIT), 'No Limit'));
+  
+  -- VARRAYs return the defined maximum size
+  DBMS_OUTPUT.PUT_LINE('VARRAY Limit: ' || v_va.LIMIT);
+END;
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

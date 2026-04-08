@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PL/SQL Control Structures Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .schema-note {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0 0 40px;
+            font-style: italic;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        code {
+            color: #d19a66; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>PL/SQL CONTROL STRUCTURES</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Write a PL/SQL block to find whether a number is even or odd.</span>
+        <span class="schema-note">(Conditional - IF)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num NUMBER := 15;
+BEGIN
+  IF MOD(v_num, 2) = 0 THEN
+    DBMS_OUTPUT.PUT_LINE(v_num || ' is Even');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE(v_num || ' is Odd');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Write a PL/SQL block to find the greatest of two numbers.</span>
+        <span class="schema-note">(Conditional - IF)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_a NUMBER := 10;
+  v_b NUMBER := 20;
+BEGIN
+  IF v_a > v_b THEN
+    DBMS_OUTPUT.PUT_LINE(v_a || ' is greater');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE(v_b || ' is greater');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Write a PL/SQL block to check if a person is eligible to vote (Age >= 18).</span>
+        <span class="schema-note">(Conditional - IF)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_age NUMBER := 21;
+BEGIN
+  IF v_age >= 18 THEN
+    DBMS_OUTPUT.PUT_LINE('Eligible to vote');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Not eligible to vote');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Write a PL/SQL block to check whether a number is positive, negative, or zero.</span>
+        <span class="schema-note">(Conditional - ELSIF)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num NUMBER := -5;
+BEGIN
+  IF v_num > 0 THEN
+    DBMS_OUTPUT.PUT_LINE('Positive');
+  ELSIF v_num < 0 THEN
+    DBMS_OUTPUT.PUT_LINE('Negative');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Zero');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Write a PL/SQL block to find the greatest of three numbers.</span>
+        <span class="schema-note">(Conditional - Nested IF)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_x NUMBER := 10;
+  v_y NUMBER := 30;
+  v_z NUMBER := 20;
+BEGIN
+  IF v_x >= v_y AND v_x >= v_z THEN
+    DBMS_OUTPUT.PUT_LINE(v_x || ' is greatest');
+  ELSIF v_y >= v_x AND v_y >= v_z THEN
+    DBMS_OUTPUT.PUT_LINE(v_y || ' is greatest');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE(v_z || ' is greatest');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Write a PL/SQL block to display the day of the week based on a number (1-7).</span>
+        <span class="schema-note">(Conditional - CASE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_day NUMBER := 1;
+BEGIN
+  CASE v_day
+    WHEN 1 THEN DBMS_OUTPUT.PUT_LINE('Monday');
+    WHEN 2 THEN DBMS_OUTPUT.PUT_LINE('Tuesday');
+    WHEN 3 THEN DBMS_OUTPUT.PUT_LINE('Wednesday');
+    WHEN 4 THEN DBMS_OUTPUT.PUT_LINE('Thursday');
+    WHEN 5 THEN DBMS_OUTPUT.PUT_LINE('Friday');
+    WHEN 6 THEN DBMS_OUTPUT.PUT_LINE('Saturday');
+    WHEN 7 THEN DBMS_OUTPUT.PUT_LINE('Sunday');
+    ELSE DBMS_OUTPUT.PUT_LINE('Invalid day');
+  END CASE;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Write a PL/SQL block to display grade based on marks (A: >90, B: >80, C: >70).</span>
+        <span class="schema-note">(Conditional - ELSIF)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_marks NUMBER := 85;
+BEGIN
+  IF v_marks > 90 THEN
+    DBMS_OUTPUT.PUT_LINE('Grade: A');
+  ELSIF v_marks > 80 THEN
+    DBMS_OUTPUT.PUT_LINE('Grade: B');
+  ELSIF v_marks > 70 THEN
+    DBMS_OUTPUT.PUT_LINE('Grade: C');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Grade: D');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Write a PL/SQL block to check if a year is a leap year.</span>
+        <span class="schema-note">(Conditional - Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_year NUMBER := 2024;
+BEGIN
+  IF (MOD(v_year, 4) = 0 AND MOD(v_year, 100) != 0) OR (MOD(v_year, 400) = 0) THEN
+    DBMS_OUTPUT.PUT_LINE(v_year || ' is a Leap Year');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE(v_year || ' is not a Leap Year');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Write a PL/SQL block to apply discount on salary based on DEPTNO.</span>
+        <span class="schema-note">(Conditional - Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_sal    NUMBER := 5000;
+  v_deptno NUMBER := 10;
+BEGIN
+  IF v_deptno = 10 THEN
+    v_sal := v_sal - (v_sal * 0.10); -- 10% discount
+  ELSIF v_deptno = 20 THEN
+    v_sal := v_sal - (v_sal * 0.20); -- 20% discount
+  END IF;
+  DBMS_OUTPUT.PUT_LINE('Final Salary: ' || v_sal);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Write a PL/SQL block using searched CASE to check category of number.</span>
+        <span class="schema-note">(Conditional - CASE)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_val NUMBER := 50;
+BEGIN
+  CASE
+    WHEN v_val < 40 THEN DBMS_OUTPUT.PUT_LINE('Low');
+    WHEN v_val BETWEEN 40 AND 70 THEN DBMS_OUTPUT.PUT_LINE('Medium');
+    ELSE DBMS_OUTPUT.PUT_LINE('High');
+  END CASE;
+END;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Write a PL/SQL block to print numbers from 1 to 10 using a simple LOOP.</span>
+        <span class="schema-note">(Iterative - Simple Loop)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_counter NUMBER := 1;
+BEGIN
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(v_counter);
+    v_counter := v_counter + 1;
+    EXIT WHEN v_counter > 10;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Write a PL/SQL block to print numbers from 1 to 10 using a WHILE loop.</span>
+        <span class="schema-note">(Iterative - While Loop)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_counter NUMBER := 1;
+BEGIN
+  WHILE v_counter <= 10 LOOP
+    DBMS_OUTPUT.PUT_LINE(v_counter);
+    v_counter := v_counter + 1;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Write a PL/SQL block to print numbers from 1 to 10 using a FOR loop.</span>
+        <span class="schema-note">(Iterative - For Loop)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+BEGIN
+  FOR i IN 1..10 LOOP
+    DBMS_OUTPUT.PUT_LINE(i);
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Write a PL/SQL block to print numbers from 10 to 1 in reverse using a FOR loop.</span>
+        <span class="schema-note">(Iterative - Reverse For Loop)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+BEGIN
+  FOR i IN REVERSE 1..10 LOOP
+    DBMS_OUTPUT.PUT_LINE(i);
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Write a PL/SQL block to print the sum of the first 10 natural numbers.</span>
+        <span class="schema-note">(Iterative - Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_sum NUMBER := 0;
+BEGIN
+  FOR i IN 1..10 LOOP
+    v_sum := v_sum + i;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Sum is: ' || v_sum);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Write a PL/SQL block to print even numbers between 1 and 20.</span>
+        <span class="schema-note">(Iterative + Condition)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+BEGIN
+  FOR i IN 1..20 LOOP
+    IF MOD(i, 2) = 0 THEN
+      DBMS_OUTPUT.PUT_LINE(i);
+    END IF;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Write a PL/SQL block to display the multiplication table of a given number.</span>
+        <span class="schema-note">(Iterative - Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num NUMBER := 5;
+BEGIN
+  FOR i IN 1..10 LOOP
+    DBMS_OUTPUT.PUT_LINE(v_num || ' x ' || i || ' = ' || (v_num * i));
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Write a PL/SQL block to find the factorial of a number.</span>
+        <span class="schema-note">(Iterative - Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num NUMBER := 5;
+  v_fact NUMBER := 1;
+BEGIN
+  FOR i IN 1..v_num LOOP
+    v_fact := v_fact * i;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Factorial of ' || v_num || ' is ' || v_fact);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Write a PL/SQL block to print the Fibonacci series up to 10 terms.</span>
+        <span class="schema-note">(Iterative - Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_a NUMBER := 0;
+  v_b NUMBER := 1;
+  v_c NUMBER;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE(v_a);
+  DBMS_OUTPUT.PUT_LINE(v_b);
+  FOR i IN 3..10 LOOP
+    v_c := v_a + v_b;
+    DBMS_OUTPUT.PUT_LINE(v_c);
+    v_a := v_b;
+    v_b := v_c;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Write a PL/SQL block to check if a number is prime.</span>
+        <span class="schema-note">(Iterative + Condition)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num NUMBER := 17;
+  v_count NUMBER := 0;
+BEGIN
+  FOR i IN 2..v_num/2 LOOP
+    IF MOD(v_num, i) = 0 THEN
+      v_count := 1;
+      EXIT;
+    END IF;
+  END LOOP;
+
+  IF v_count = 0 AND v_num > 1 THEN
+    DBMS_OUTPUT.PUT_LINE(v_num || ' is Prime');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE(v_num || ' is not Prime');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Write a PL/SQL block to find the sum of digits of a given number.</span>
+        <span class="schema-note">(Iterative - Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num    NUMBER := 123;
+  v_sum    NUMBER := 0;
+  v_rem    NUMBER;
+BEGIN
+  WHILE v_num > 0 LOOP
+    v_rem := MOD(v_num, 10);
+    v_sum := v_sum + v_rem;
+    v_num := TRUNC(v_num / 10);
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Sum of digits: ' || v_sum);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Write a PL/SQL block to reverse a given number.</span>
+        <span class="schema-note">(Iterative - Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num NUMBER := 1234;
+  v_rev NUMBER := 0;
+BEGIN
+  WHILE v_num > 0 LOOP
+    v_rev := (v_rev * 10) + MOD(v_num, 10);
+    v_num := TRUNC(v_num / 10);
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Reversed Number: ' || v_rev);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Write a PL/SQL block to check whether a number is Palindrome or not.</span>
+        <span class="schema-note">(Iterative + Condition)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num  NUMBER := 121;
+  v_temp NUMBER := v_num;
+  v_rev  NUMBER := 0;
+BEGIN
+  WHILE v_temp > 0 LOOP
+    v_rev := (v_rev * 10) + MOD(v_temp, 10);
+    v_temp := TRUNC(v_temp / 10);
+  END LOOP;
+  
+  IF v_num = v_rev THEN
+    DBMS_OUTPUT.PUT_LINE(v_num || ' is a Palindrome');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE(v_num || ' is not a Palindrome');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Write a PL/SQL block to check whether a number is an Armstrong number.</span>
+        <span class="schema-note">(Iterative + Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num  NUMBER := 153;
+  v_temp NUMBER := v_num;
+  v_sum  NUMBER := 0;
+  v_rem  NUMBER;
+BEGIN
+  WHILE v_temp > 0 LOOP
+    v_rem := MOD(v_temp, 10);
+    v_sum := v_sum + (v_rem * v_rem * v_rem);
+    v_temp := TRUNC(v_temp / 10);
+  END LOOP;
+  
+  IF v_num = v_sum THEN
+    DBMS_OUTPUT.PUT_LINE(v_num || ' is an Armstrong Number');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE(v_num || ' is not an Armstrong Number');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">25</span>
+        <span class="q-text">Write a PL/SQL block to print prime numbers between 1 and 50.</span>
+        <span class="schema-note">(Nested Loops)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_flag NUMBER;
+BEGIN
+  FOR i IN 2..50 LOOP
+    v_flag := 0;
+    FOR j IN 2..TRUNC(i/2) LOOP
+      IF MOD(i, j) = 0 THEN
+        v_flag := 1;
+        EXIT;
+      END IF;
+    END LOOP;
+    IF v_flag = 0 THEN
+      DBMS_OUTPUT.PUT_LINE(i);
+    END IF;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">26</span>
+        <span class="q-text">Write a PL/SQL block to print the following pattern: <br>*<br>**<br>***</span>
+        <span class="schema-note">(Nested Loops - Pattern)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+BEGIN
+  FOR i IN 1..3 LOOP
+    FOR j IN 1..i LOOP
+      DBMS_OUTPUT.PUT('*');
+    END LOOP;
+    DBMS_OUTPUT.NEW_LINE;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">27</span>
+        <span class="q-text">Write a PL/SQL block to print numbers in a triangle pattern.</span>
+        <span class="schema-note">(Nested Loops - Pattern)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+BEGIN
+  FOR i IN 1..4 LOOP
+    FOR j IN 1..i LOOP
+      DBMS_OUTPUT.PUT(j || ' ');
+    END LOOP;
+    DBMS_OUTPUT.NEW_LINE;
+  END LOOP;
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">28</span>
+        <span class="q-text">Write a PL/SQL block to find the sum of all even numbers between 1 and 100.</span>
+        <span class="schema-note">(Iterative + Condition)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_sum NUMBER := 0;
+BEGIN
+  FOR i IN 1..100 LOOP
+    IF MOD(i, 2) = 0 THEN
+      v_sum := v_sum + i;
+    END IF;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Total Sum: ' || v_sum);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">29</span>
+        <span class="q-text">Write a PL/SQL block to count the number of vowels in a given string.</span>
+        <span class="schema-note">(Iterative + String Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_str   VARCHAR2(20) := 'ORACLE';
+  v_count NUMBER := 0;
+  v_char  CHAR(1);
+BEGIN
+  FOR i IN 1..LENGTH(v_str) LOOP
+    v_char := UPPER(SUBSTR(v_str, i, 1));
+    IF v_char IN ('A', 'E', 'I', 'O', 'U') THEN
+      v_count := v_count + 1;
+    END IF;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Number of Vowels: ' || v_count);
+END;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">30</span>
+        <span class="q-text">Write a PL/SQL block to implement a basic calculator using CASE (Add, Sub, Mul, Div).</span>
+        <span class="schema-note">(Conditional + Arithmetic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_num1 NUMBER := 10;
+  v_num2 NUMBER := 5;
+  v_op   CHAR(1) := '*';
+BEGIN
+  CASE v_op
+    WHEN '+' THEN DBMS_OUTPUT.PUT_LINE('Result: ' || (v_num1 + v_num2));
+    WHEN '-' THEN DBMS_OUTPUT.PUT_LINE('Result: ' || (v_num1 - v_num2));
+    WHEN '*' THEN DBMS_OUTPUT.PUT_LINE('Result: ' || (v_num1 * v_num2));
+    WHEN '/' THEN DBMS_OUTPUT.PUT_LINE('Result: ' || (v_num1 / v_num2));
+    ELSE DBMS_OUTPUT.PUT_LINE('Invalid Operator');
+  END CASE;
+END;
+            </div>
+        </details>
+    </div>
+    <div class="question-card">
+        <span class="q-number">31</span>
+        <span class="q-text">Write a PL/SQL block to check whether a given string is Palindrome or not.</span>
+        <span class="schema-note">(Iterative + String Logic)</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DECLARE
+  v_str     VARCHAR2(20) := 'MADAM';
+  v_reverse VARCHAR2(20);
+BEGIN
+  -- Reverse the string
+  FOR i IN REVERSE 1..LENGTH(v_str) LOOP
+    v_reverse := v_reverse || SUBSTR(v_str, i, 1);
+  END LOOP;
+
+  -- Compare original with reversed
+  IF v_str = v_reverse THEN
+    DBMS_OUTPUT.PUT_LINE(v_str || ' is a Palindrome String');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE(v_str || ' is not a Palindrome String');
+  END IF;
+END;
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>

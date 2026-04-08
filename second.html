@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Practice Questions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 10px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .question-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .q-number {
+            background: #ffc107;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .q-text {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        details {
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        summary {
+            padding: 10px;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #555;
+            outline: none;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-content {
+            padding: 15px;
+            background: #282c34;
+            color: #abb2bf;
+            border-radius: 0 0 4px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+
+        code {
+            color: #d19a66; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>DML COMMANDS</h1>
+        <a href="javascript:history.back()" class="back-btn">← Go Back</a>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">1</span>
+        <span class="q-text">Insert a record into STUDENT table with values: SID = 101, SNAME = 'RAHUL', AGE = 20, COURSE = 'MCA'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO STUDENT (SID, SNAME, AGE, COURSE) 
+VALUES (101, 'RAHUL', 20, 'MCA');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">2</span>
+        <span class="q-text">Insert a record into EMPLOYEE table with EID = 201, ENAME = 'ANITA', SALARY = 45000, DEPTNO = 10.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMPLOYEE (EID, ENAME, SALARY, DEPTNO) 
+VALUES (201, 'ANITA', 45000, 10);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">3</span>
+        <span class="q-text">Insert a new department into DEPT table; DEPTNO = 50, DNAME = 'TRAINING', LOC = 'DELHI'.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO DEPT (DEPTNO, DNAME, LOC) 
+VALUES (50, 'TRAINING', 'DELHI');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">4</span>
+        <span class="q-text">Insert a record into BOOK table with only BOOK_ID, TITLE, and PRICE.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Note: Assuming specific values for example
+INSERT INTO BOOK (BOOK_ID, TITLE, PRICE) 
+VALUES (501, 'SQL Guide', 299.99);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">5</span>
+        <span class="q-text">Insert multiple rows into COURSE table.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO COURSE (CID, CNAME) 
+VALUES 
+(1, 'BCA'),
+(2, 'MCA'),
+(3, 'B.Tech');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">6</span>
+        <span class="q-text">Insert data into EMP_COPY table from the EMP table.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP_COPY 
+SELECT * FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">7</span>
+        <span class="q-text">Insert employees from EMP whose salary is greater than 3000 into EMP_HIGH_SAL.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP_HIGH_SAL 
+SELECT * FROM EMP 
+WHERE SALARY > 3000;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">8</span>
+        <span class="q-text">Insert employees hired after 1981 into EMP_NEW_HIRE.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Assuming HireDate column exists
+INSERT INTO EMP_NEW_HIRE 
+SELECT * FROM EMP 
+WHERE HIREDATE > '1981-12-31';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">9</span>
+        <span class="q-text">Insert department numbers and names from DEPT into a table called DEPT_BACKUP.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO DEPT_BACKUP (DEPTNO, DNAME) 
+SELECT DEPTNO, DNAME FROM DEPT;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">10</span>
+        <span class="q-text">Insert employee names and salaries into a table EMP_SALARY_RECORD.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+INSERT INTO EMP_SALARY_RECORD (ENAME, SALARY) 
+SELECT ENAME, SALARY FROM EMP;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">11</span>
+        <span class="q-text">Update the salary of employee SMITH to 2000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SAL = 2000 
+WHERE ENAME = 'SMITH';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">12</span>
+        <span class="q-text">Increase salary of all employees by 10%.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SAL = SAL * 1.10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">13</span>
+        <span class="q-text">Update the department number of employee ALLEN to 20.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET DEPTNO = 20 
+WHERE ENAME = 'ALLEN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">14</span>
+        <span class="q-text">Update commission of SALESMAN to 500.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET COMM = 500 
+WHERE JOB = 'SALESMAN';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">15</span>
+        <span class="q-text">Update job of employee MILLER to MANAGER.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET JOB = 'MANAGER' 
+WHERE ENAME = 'MILLER';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">16</span>
+        <span class="q-text">Increase salary of employees in department 10 by 20%.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SAL = SAL * 1.20 
+WHERE DEPTNO = 10;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">17</span>
+        <span class="q-text">Update salary of employees whose job is CLERK to 1500.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET SAL = 1500 
+WHERE JOB = 'CLERK';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">18</span>
+        <span class="q-text">Update location of department 30 to MUMBAI.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE DEPT 
+SET LOC = 'MUMBAI' 
+WHERE DEPTNO = 30;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">19</span>
+        <span class="q-text">Update commission of employees who have NULL commission to 100.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+UPDATE EMP 
+SET COMM = 100 
+WHERE COMM IS NULL;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">20</span>
+        <span class="q-text">Update salary of employees who earn less than average salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+-- Note: Subquery used to find average
+UPDATE EMP 
+SET SAL = SAL + 500 -- Assuming a fixed increase
+WHERE SAL < (SELECT AVG(SAL) FROM EMP);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">21</span>
+        <span class="q-text">Delete employee SMITH from EMP table.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE ENAME = 'SMITH';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">22</span>
+        <span class="q-text">Delete all employees working in department 30.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE DEPTNO = 30;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">23</span>
+        <span class="q-text">Delete employees whose salary is less than 1000.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE SALARY < 1000;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">24</span>
+        <span class="q-text">Delete employees hired before 1981.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE HIREDATE < '1981-01-01';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">25</span>
+        <span class="q-text">Delete employees who do not receive commission.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE COMM IS NULL OR COMM = 0;
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">26</span>
+        <span class="q-text">Delete departments located in CHICAGO.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM DEPT 
+WHERE LOC = 'CHICAGO';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">27</span>
+        <span class="q-text">Delete employees whose job is CLERK.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE JOB = 'CLERK';
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">28</span>
+        <span class="q-text">Delete employees earning the minimum salary.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE SALARY = (SELECT MIN(SALARY) FROM EMP);
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">29</span>
+        <span class="q-text">Delete employees working in departments located in NEW YORK.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE DEPTNO IN (SELECT DEPTNO FROM DEPT WHERE LOC = 'NEW YORK');
+            </div>
+        </details>
+    </div>
+
+    <div class="question-card">
+        <span class="q-number">30</span>
+        <span class="q-text">Delete employees whose manager number is NULL.</span>
+        <details>
+            <summary>Show Answer</summary>
+            <div class="answer-content">
+DELETE FROM EMP 
+WHERE MGR IS NULL;
+            </div>
+        </details>
+    </div>
+</body>
+</html>

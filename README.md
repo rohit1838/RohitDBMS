@@ -1,1 +1,2 @@
-# RohitDBMS
+# DBMS
+DBMS website for collage 
