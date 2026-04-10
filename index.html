@@ -3,19 +3,157 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Database Management System</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Database Management System Dashboard</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+      :root {
+        --bg-color: #0f172a;
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --accent-color: #38bdf8;
+        --text-main: #f1f5f9;
+        --text-dim: #94a3b8;
+        --highlight: #fbbf24;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+        color: var(--text-main);
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 40px 20px;
+        line-height: 1.6;
+      }
+
+      .title {
+        text-align: center;
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 50px;
+        letter-spacing: -1px;
+        background: linear-gradient(to right, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: var(--card-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 24px;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent-color);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(56, 189, 248, 0.2);
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .card h2 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.4;
+        padding-right: 15px;
+      }
+
+      .arrow {
+        font-size: 1.4rem;
+        color: var(--accent-color);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover .arrow {
+        transform: translateX(5px);
+      }
+
+      .count {
+        font-size: 0.85rem;
+        color: var(--text-dim);
+        margin: 10px 0 20px 0;
+      }
+
+      .progress-bg {
+        background: rgba(255, 255, 255, 0.1);
+        height: 6px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        width: 0%; /* Change this percentage to show progress */
+        height: 100%;
+        background: var(--accent-color);
+        border-radius: 10px;
+        transition: width 1s ease-in-out;
+      }
+
+      .status {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        font-weight: 700;
+        color: var(--text-dim);
+      }
+
+      /* Highlighted Card Style */
+      .card.highlight {
+        border: 1px solid rgba(251, 191, 36, 0.3);
+        background: rgba(251, 191, 36, 0.05);
+      }
+
+      .yellow-text {
+        color: var(--highlight);
+      }
+
+      .card.highlight .progress-bar {
+        background: var(--highlight);
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <h1 class="title">Database Management System</h1>
     <div class="container">
+      
       <a href="first.html" class="card">
         <div class="card-header">
-          <h2>Data Defination Language (DDL) Commands</h2>
+          <h2>Data Definition Language (DDL) Commands</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">50 practice problems</p>
-        <div class="progress-bg"><div class="progress-bar"></div></div>
+        <div class="progress-bg"><div class="progress-bar" style="width: 0%;"></div></div>
         <span class="status">Not started</span>
       </a>
 
@@ -82,13 +220,13 @@
       <a href="eigth.html" class="card highlight">
         <div class="card-header">
           <h2 class="yellow-text">
-            Subqueries: Single Row, Multiple Row, Corelated Subquery
+            Subqueries: Single, Multiple Row & Correlated
           </h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">69 practice problems</p>
-        <div class="progress-bg"><div class="progress-bar"></div></div>
-        <span class="status">Not started</span>
+        <div class="progress-bg"><div class="progress-bar" style="width: 15%;"></div></div>
+        <span class="status">In Progress</span>
       </a>
 
       <a href="nineth.html" class="card">
@@ -103,9 +241,7 @@
 
       <a href="tenth.html" class="card">
         <div class="card-header">
-          <h2>
-            SCALAR FUNCTION: DATE, NUMERIC, STRING, CONVERSION, GENERAL & NULL
-          </h2>
+          <h2>Scalar Functions: Date, Numeric, String, etc.</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">60 practice problems</p>
@@ -115,79 +251,84 @@
 
       <a href="eleventh.html" class="card">
         <div class="card-header">
-          <h2>
-            JOINS: INNER, CARTESIAN OR CROSS, LEFT OUTER, RIGHT OUTER, FULL
-            OUTER
-          </h2>
+          <h2>Joins: Inner, Cartesian, Outer & Full</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">40 practice problems</p>
         <div class="progress-bg"><div class="progress-bar"></div></div>
         <span class="status">Not started</span>
       </a>
+
       <a href="twelfth.html" class="card">
         <div class="card-header">
-          <h2>INTERVIEW QUESTIONS: JOINS</h2>
+          <h2>Interview Questions: Joins</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">24 practice problems</p>
         <div class="progress-bg"><div class="progress-bar"></div></div>
         <span class="status">Not started</span>
       </a>
+
       <a href="thirteen.html" class="card">
         <div class="card-header">
-          <h2>SET OPERATORS: UNION, UNION ALL, INTERSECT, MINUS</h2>
+          <h2>Set Operators: Union, Intersect, Minus</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">25 practice problems</p>
         <div class="progress-bg"><div class="progress-bar"></div></div>
         <span class="status">Not started</span>
       </a>
+
       <a href="fourteen.html" class="card">
         <div class="card-header">
-          <h2>VIEWS: CREATE, DROP, MATERLIZED</h2>
+          <h2>Views: Create, Drop, Materialized</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">35 practice problems</p>
         <div class="progress-bg"><div class="progress-bar"></div></div>
         <span class="status">Not started</span>
       </a>
+
       <a href="fifteen.html" class="card">
         <div class="card-header">
-          <h2>TRANSACTION CONTROL LANGUAGE (TCL) and DATA CONTROL LANGUAGE (DCL)</h2>
+          <h2>TCL and DCL Control Languages</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">35 practice problems</p>
         <div class="progress-bg"><div class="progress-bar"></div></div>
         <span class="status">Not started</span>
       </a>
+
       <a href="sixteen.html" class="card">
         <div class="card-header">
-          <h2>PLSQL: OUTPUT STATEMENT, DATATYPES, VARIABLES, CONSTANTS</h2>
+          <h2>PL/SQL: Datatypes, Variables, Constants</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">22 practice problems</p>
         <div class="progress-bg"><div class="progress-bar"></div></div>
         <span class="status">Not started</span>
       </a>
+
       <a href="seventeen.html" class="card">
         <div class="card-header">
-          <h2>PLSQL: DECISION CONTROL STATEMENT: IF, IF-ELSE, IF-ELSIF-ELSE, CASE</h2>
+          <h2>PL/SQL: Decision Control Statements</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">31 practice problems</p>
         <div class="progress-bg"><div class="progress-bar"></div></div>
         <span class="status">Not started</span>
       </a>
+
       <a href="eighteen.html" class="card">
         <div class="card-header">
-          <h2>PLSQL: ITERATIVE CONTROL STATEMENT: SIMPLE LOOP, WHILE LOOP, FOR LOOP</h2>
+          <h2>PL/SQL: Iterative Control (Loops)</h2>
           <span class="arrow">&rsaquo;</span>
         </div>
         <p class="count">32 practice problems</p>
         <div class="progress-bg"><div class="progress-bar"></div></div>
         <span class="status">Not started</span>
       </a>
+
     </div>
   </body>
 </html>
